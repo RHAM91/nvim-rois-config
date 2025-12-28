@@ -119,3 +119,62 @@ end
 -- Comentado por defecto para no interferir con blink.cmp
 -- Descomenta si prefieres usar Tab para Emmet
 -- vim.keymap.set('i', '<Tab>', emmet_or_tab, { noremap = true, silent = true, desc = 'Emmet o Tab' })
+
+-- ========================================
+-- TEMAS: Cambiar entre temas de colores
+-- ========================================
+
+-- Función para aplicar tema de forma segura
+local function set_theme(theme_name, setup_fn)
+  local ok, err = pcall(function()
+    if setup_fn then
+      setup_fn()
+    end
+    vim.cmd.colorscheme(theme_name)
+  end)
+  if not ok then
+    vim.notify('Error al cargar tema: ' .. theme_name, vim.log.levels.ERROR)
+  end
+end
+
+-- Catppuccin (variantes)
+vim.keymap.set('n', '<leader>tc', function()
+  set_theme('catppuccin')
+end, { desc = 'Tema: Catppuccin Mocha' })
+
+vim.keymap.set('n', '<leader>tC', function()
+  require("catppuccin").setup({ flavour = "macchiato" })
+  set_theme('catppuccin')
+end, { desc = 'Tema: Catppuccin Macchiato' })
+
+-- Kanagawa Wave (variante más clara)
+vim.keymap.set('n', '<leader>tk', function()
+  set_theme('kanagawa-wave')
+end, { desc = 'Tema: Kanagawa Wave' })
+
+-- Kanagawa Dragon (variante más oscura)
+vim.keymap.set('n', '<leader>tK', function()
+  set_theme('kanagawa-dragon')
+end, { desc = 'Tema: Kanagawa Dragon' })
+
+-- Oh-Lucy
+vim.keymap.set('n', '<leader>tl', function()
+  set_theme('oh-lucy')
+end, { desc = 'Tema: Oh-Lucy' })
+
+vim.keymap.set('n', '<leader>tL', function()
+  set_theme('oh-lucy-evening')
+end, { desc = 'Tema: Oh-Lucy Evening' })
+
+-- Tokyo Night (bonus)
+vim.keymap.set('n', '<leader>tt', function()
+  set_theme('tokyonight-night')
+end, { desc = 'Tema: Tokyo Night' })
+
+-- Selector de temas con Telescope (si está instalado)
+vim.keymap.set('n', '<leader>ts', function()
+  local ok = pcall(vim.cmd, 'Telescope colorscheme')
+  if not ok then
+    vim.notify('Telescope no disponible. Usa <leader>tc, tk, tl para cambiar temas', vim.log.levels.WARN)
+  end
+end, { desc = 'Tema: Selector (Telescope)' })
