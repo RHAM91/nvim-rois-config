@@ -12,8 +12,8 @@ return {
     vim.g.codeium_manual = false
 
     -- Keymaps personalizados para Codeium
-    -- Aceptar sugerencia completa
-    vim.keymap.set("i", "<C-g>", function()
+    -- Aceptar sugerencia completa con Tab
+    vim.keymap.set("i", "<Tab>", function()
       return vim.fn["codeium#Accept"]()
     end, { expr = true, silent = true, desc = "Codeium: Accept suggestion" })
 
