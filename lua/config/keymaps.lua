@@ -178,3 +178,13 @@ vim.keymap.set('n', '<leader>ts', function()
     vim.notify('Telescope no disponible. Usa <leader>tc, tk, tl para cambiar temas', vim.log.levels.WARN)
   end
 end, { desc = 'Tema: Selector (Telescope)' })
+
+-- ========================================
+-- CLAUDE CODE: Asistente de IA
+-- ========================================
+
+-- Nota: Los atajos principales están configurados en lua/plugins/claude-code.lua
+-- Atajos adicionales:
+
+-- Verificar estado de Claude Code
+vim.keymap.set('n', '<leader>as', ':ClaudeCodeStatus<CR>', { desc = 'Claude: Status' })
