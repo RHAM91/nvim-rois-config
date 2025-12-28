@@ -23,10 +23,10 @@ vim.opt.mouse = 'a'
 -- Clipboard
 vim.opt.clipboard = 'unnamedplus'
 
--- Tabs y espacios
+-- Tabs y espacios (4 espacios de indentación)
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
 vim.opt.smartindent = true
 
 -- Apariencia
