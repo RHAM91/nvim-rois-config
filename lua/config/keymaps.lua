@@ -33,11 +33,17 @@ vim.keymap.set('v', 'p', '"_dP', { noremap = true, silent = true, desc = 'Paste 
 -- Salir de insert mode con jk
 vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true, desc = 'Salir de insert mode' })
 
--- Moverse entre ventanas más fácil
-vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true, desc = 'Ventana izquierda' })
-vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true, desc = 'Ventana abajo' })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true, desc = 'Ventana arriba' })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true, desc = 'Ventana derecha' })
+-- Moverse entre ventanas más fácil (Ctrl+Shift para evitar confusión con Codeium)
+vim.keymap.set('n', '<C-S-h>', '<C-w>h', { noremap = true, silent = true, desc = 'Ventana izquierda' })
+vim.keymap.set('n', '<C-S-j>', '<C-w>j', { noremap = true, silent = true, desc = 'Ventana abajo' })
+vim.keymap.set('n', '<C-S-k>', '<C-w>k', { noremap = true, silent = true, desc = 'Ventana arriba' })
+vim.keymap.set('n', '<C-S-l>', '<C-w>l', { noremap = true, silent = true, desc = 'Ventana derecha' })
+
+-- También funciona en modo terminal (para Claude Code)
+vim.keymap.set('t', '<C-S-h>', '<C-\\><C-n><C-w>h', { noremap = true, silent = true, desc = 'Terminal: Ventana izquierda' })
+vim.keymap.set('t', '<C-S-j>', '<C-\\><C-n><C-w>j', { noremap = true, silent = true, desc = 'Terminal: Ventana abajo' })
+vim.keymap.set('t', '<C-S-k>', '<C-\\><C-n><C-w>k', { noremap = true, silent = true, desc = 'Terminal: Ventana arriba' })
+vim.keymap.set('t', '<C-S-l>', '<C-\\><C-n><C-w>l', { noremap = true, silent = true, desc = 'Terminal: Ventana derecha' })
 
 -- Redimensionar ventanas con flechas
 vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', { noremap = true, silent = true, desc = 'Reducir altura' })
