@@ -73,9 +73,15 @@ vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, si
 vim.keymap.set('v', '<', '<gv', { noremap = true, silent = true, desc = 'Indentar izquierda' })
 vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true, desc = 'Indentar derecha' })
 
--- Mover líneas seleccionadas arriba/abajo
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = 'Mover líneas abajo' })
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = 'Mover líneas arriba' })
+-- Mover líneas arriba/abajo (Shift+Alt+Flechas, como VSCode)
+vim.keymap.set('n', '<S-A-Down>', ':m .+1<CR>==', { noremap = true, silent = true, desc = 'Mover línea abajo' })
+vim.keymap.set('n', '<S-A-Up>', ':m .-2<CR>==', { noremap = true, silent = true, desc = 'Mover línea arriba' })
+vim.keymap.set('v', '<S-A-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = 'Mover bloque abajo' })
+vim.keymap.set('v', '<S-A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = 'Mover bloque arriba' })
+
+-- Alternativa con j/k (solo si las flechas no te gustan, descomentar si prefieres)
+vim.keymap.set('n', '<S-A-j>', ':m .+1<CR>==', { noremap = true, silent = true, desc = 'Mover línea abajo' })
+vim.keymap.set('v', '<S-A-j>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = 'Mover bloque abajo' })
 
 -- Limpiar búsqueda resaltada
 vim.keymap.set('n', '<Esc>', ':noh<CR>', { noremap = true, silent = true, desc = 'Limpiar búsqueda' })
