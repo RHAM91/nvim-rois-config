@@ -1,6 +1,6 @@
 # 🚀 Configuración de Neovim
 
-Configuración completa de Neovim optimizada para desarrollo con Vue.js, TypeScript y JavaScript.
+Configuración completa de Neovim optimizada para desarrollo con Vue.js, TypeScript y JavaScript, con integración de IA (Codeium y Claude Code).
 
 ## 📋 Tabla de Contenidos
 
@@ -8,14 +8,19 @@ Configuración completa de Neovim optimizada para desarrollo con Vue.js, TypeScr
 - [Leader Key](#leader-key)
 - [Navegación](#navegación)
 - [Buffers](#buffers)
+- [Ventanas](#ventanas)
 - [Edición](#edición)
 - [Modo Visual](#modo-visual)
 - [LSP (Language Server Protocol)](#lsp-language-server-protocol)
+- [Formateo de Código](#formateo-de-código)
+- [Autocompletado (blink.cmp)](#autocompletado-blinkcmp)
+- [Codeium (IA)](#codeium-ia)
+- [Claude Code (IA)](#claude-code-ia)
+- [Temas](#temas)
 - [Emmet](#emmet)
 - [Comentarios](#comentarios)
 - [Explorador de Archivos](#explorador-de-archivos)
 - [Búsqueda (Telescope)](#búsqueda-telescope)
-- [Ventanas](#ventanas)
 - [Git](#git)
 - [Plugins Instalados](#plugins-instalados)
 
@@ -23,19 +28,34 @@ Configuración completa de Neovim optimizada para desarrollo con Vue.js, TypeScr
 
 ## Instalación
 
-1. Clona este repositorio en tu directorio de configuración:
+### 1. Clonar configuración
+
 ```bash
 git clone <tu-repo> ~/.config/nvim
 ```
 
-2. Abre Neovim y los plugins se instalarán automáticamente:
+### 2. Instalar dependencias
+
+```bash
+# Instalar Prettier (formateador)
+npm install -g prettier
+
+# Instalar Claude Code CLI (opcional)
+curl -fsSL claude.ai/install.sh | bash
+```
+
+### 3. Abrir Neovim
+
 ```bash
 nvim
 ```
 
-3. Instala los LSP servers (si no se instalan automáticamente):
+Los plugins se instalarán automáticamente en el primer inicio.
+
+### 4. Autenticar Codeium
+
 ```vim
-:Mason
+:Codeium Auth
 ```
 
 ---
@@ -67,8 +87,6 @@ La tecla **Leader** está configurada como **`Espacio`** (Space).
 |-------|-------------|
 | `Shift+j` | Bajar al siguiente párrafo (línea en blanco) |
 | `Shift+k` | Subir al anterior párrafo (línea en blanco) |
-| `{` | Subir al anterior párrafo (alternativo) |
-| `}` | Bajar al siguiente párrafo (alternativo) |
 
 ### Navegación en Modo Insert
 
@@ -96,14 +114,38 @@ La tecla **Leader** está configurada como **`Espacio`** (Space).
 | `Space+bo` | Cerrar todos los buffers excepto el actual |
 | `Space+bl` | Listar todos los buffers abiertos |
 
-### Comandos Directos
+---
+
+## Ventanas
+
+### Navegación entre Ventanas
+
+**IMPORTANTE:** Usa `Ctrl+Shift` para navegar entre ventanas (evita conflictos con Codeium)
+
+| Atajo | Descripción |
+|-------|-------------|
+| `Ctrl+Shift+h` | Ir a ventana izquierda |
+| `Ctrl+Shift+j` | Ir a ventana abajo |
+| `Ctrl+Shift+k` | Ir a ventana arriba |
+| `Ctrl+Shift+l` | Ir a ventana derecha |
+
+> 💡 **Nota:** Funciona tanto en modo normal como en modo terminal (Claude Code)
+
+### Redimensionar Ventanas
+
+| Atajo | Descripción |
+|-------|-------------|
+| `Ctrl+Arriba` | Reducir altura |
+| `Ctrl+Abajo` | Aumentar altura |
+| `Ctrl+Izquierda` | Reducir ancho |
+| `Ctrl+Derecha` | Aumentar ancho |
+
+### Dividir Ventanas
 
 ```vim
-:bd          " Cerrar buffer actual
-:bd!         " Cerrar buffer sin guardar
-:bd 3        " Cerrar buffer número 3
-:buffers     " Ver lista de buffers
-:ls          " Ver lista de buffers (alternativo)
+:split      " Dividir horizontalmente
+:vsplit     " Dividir verticalmente
+:only       " Cerrar todas las ventanas excepto la actual
 ```
 
 ---
@@ -184,7 +226,6 @@ La tecla **Leader** está configurada como **`Espacio`** (Space).
 | `gr` | Ver referencias |
 | `gi` | Ir a implementación |
 | `gh` | Mostrar documentación (hover) |
-| `Ctrl+k` | Ayuda de firma de función |
 
 ### Diagnósticos y Errores
 
@@ -200,15 +241,185 @@ La tecla **Leader** está configurada como **`Espacio`** (Space).
 |-------|-------------|
 | `Space+rn` | Renombrar símbolo |
 | `Space+ca` | Acciones de código (code actions) |
-| `Space+f` | Formatear código |
 
 ### LSP Servers Instalados
 
-- **vtsls** - TypeScript/JavaScript
-- **vue_ls** - Vue.js (anteriormente Volar)
+- **vtsls** - TypeScript/JavaScript (incluye plugin de Vue)
+- **vue_ls** - Vue Language Server (Volar)
 - **html** - HTML
 - **cssls** - CSS/SCSS/Less
 - **emmet_language_server** - Emmet
+
+---
+
+## Formateo de Código
+
+### Atajos
+
+| Atajo | Descripción |
+|-------|-------------|
+| `Space+f` | Formatear archivo actual manualmente |
+| `:w` | Al guardar, formatea automáticamente |
+
+### Configuración
+
+- **Formateador:** Prettier (JS, TS, Vue, CSS, HTML, JSON)
+- **Indentación:** 4 espacios
+- **Auto-formateo:** Al guardar (`:w`)
+
+### Comandos
+
+```vim
+:ConformInfo        " Ver estado del formateador
+:Mason              " Instalar/actualizar formateadores
+```
+
+---
+
+## Autocompletado (blink.cmp)
+
+### Atajos en Modo Insert
+
+| Atajo | Descripción |
+|-------|-------------|
+| `Enter` | Aceptar sugerencia |
+| `Ctrl+g` | Aceptar sugerencia (alternativo) |
+| `Ctrl+Space` | Mostrar menú de completado |
+| `Ctrl+e` | Ocultar menú |
+| `Ctrl+n` / `↓` | Siguiente sugerencia |
+| `Ctrl+p` / `↑` | Sugerencia anterior |
+| `Ctrl+b` | Scroll documentación arriba |
+| `Ctrl+f` | Scroll documentación abajo |
+
+### Fuentes de Completado
+
+- LSP (funciones, variables, tipos)
+- Path (rutas de archivos)
+- Snippets (fragmentos de código)
+- Buffer (palabras del archivo actual)
+
+---
+
+## Codeium (IA)
+
+Codeium proporciona sugerencias de código completas generadas por IA.
+
+### Atajos en Modo Insert
+
+| Atajo | Descripción |
+|-------|-------------|
+| `Tab` | Aceptar sugerencia completa |
+| `Ctrl+k` | Aceptar siguiente palabra |
+| `Ctrl+l` | Aceptar siguiente línea |
+| `Ctrl+;` | Siguiente sugerencia alternativa |
+| `Ctrl+,` | Sugerencia anterior |
+| `Ctrl+x` | Rechazar/limpiar sugerencia |
+| `Ctrl+Space` | Activar sugerencia manualmente |
+
+### Comandos
+
+| Atajo | Descripción |
+|-------|-------------|
+| `Space+cc` | Abrir Codeium Chat |
+
+```vim
+:Codeium Auth       " Autenticarse con Codeium
+:Codeium Enable     " Habilitar Codeium
+:Codeium Disable    " Deshabilitar Codeium
+```
+
+### Diferencia con blink.cmp
+
+- **blink.cmp** → Autocompletado LSP preciso (nombres de funciones, variables existentes)
+- **Codeium** → Sugerencias IA completas (bloques de código, funciones enteras)
+
+---
+
+## Claude Code (IA)
+
+Asistente de IA integrado en Neovim para ayuda con código.
+
+### Atajos
+
+| Atajo | Descripción |
+|-------|-------------|
+| `Space+aa` | Abrir/cerrar Claude Code |
+| `Space+ac` | Chat con Claude |
+| `Space+ar` | Refrescar |
+| `Space+as` | Ver estado de conexión |
+
+### Navegación con Claude Code
+
+Cuando Claude Code está abierto:
+1. **Abrir Claude:** `Space + a + a`
+2. **Ir al chat:** `Ctrl+Shift+l` (derecha)
+3. **Volver al código:** `Ctrl+Shift+h` (izquierda)
+
+### Configuración
+
+- **Posición:** Derecha (30% del ancho)
+- **Auto-close:** Sí
+- **Diff vertical:** Sí
+
+### Comandos
+
+```vim
+:ClaudeCode         " Abrir Claude Code
+:ClaudeCodeStatus   " Ver estado de conexión
+```
+
+### Requisitos
+
+```bash
+# Instalar CLI de Claude Code
+curl -fsSL claude.ai/install.sh | bash
+
+# Verificar instalación
+claude doctor
+```
+
+---
+
+## Temas
+
+### Temas Instalados
+
+- **Kanagawa Wave** (por defecto) - Tema japonés claro
+- **Kanagawa Dragon** - Variante oscura
+- **Catppuccin Mocha** - Tema pastel suave
+- **Catppuccin Macchiato** - Variante alternativa
+- **Oh-Lucy** - Tema vibrante
+- **Oh-Lucy Evening** - Variante nocturna
+- **Tokyo Night** - Tema moderno popular
+
+### Atajos para Cambiar Tema
+
+| Atajo | Tema |
+|-------|------|
+| `Space+tk` | Kanagawa Wave (por defecto) |
+| `Space+tK` | Kanagawa Dragon (oscuro) |
+| `Space+tc` | Catppuccin Mocha |
+| `Space+tC` | Catppuccin Macchiato |
+| `Space+tl` | Oh-Lucy |
+| `Space+tL` | Oh-Lucy Evening |
+| `Space+tt` | Tokyo Night |
+| `Space+ts` | Selector interactivo (Telescope) |
+
+### Comandos
+
+```vim
+:colorscheme kanagawa-wave
+:colorscheme catppuccin
+:colorscheme oh-lucy
+:Telescope colorscheme      " Selector visual
+```
+
+### Cambiar Tema por Defecto
+
+Edita `init.lua` línea 9:
+```lua
+pcall(vim.cmd.colorscheme, 'kanagawa-wave')  -- Cambia aquí
+```
 
 ---
 
@@ -252,6 +463,10 @@ div#header>h1+p        → <div id="header"><h1></h1><p></p></div>
 
 ### Oil (Explorador alternativo)
 
+| Atajo | Descripción |
+|-------|-------------|
+| `-` | Abrir Oil (editar filesystem como buffer) |
+
 Oil permite editar directorios como si fueran archivos de texto.
 
 ---
@@ -263,36 +478,7 @@ Oil permite editar directorios como si fueran archivos de texto.
 | `Space+ff` | Buscar archivos |
 | `Space+fg` | Buscar en contenido (live grep) |
 | `Space+fb` | Buscar en buffers abiertos |
-
----
-
-## Ventanas
-
-### Navegación entre Ventanas
-
-| Atajo | Descripción |
-|-------|-------------|
-| `Ctrl+h` | Ir a ventana izquierda |
-| `Ctrl+j` | Ir a ventana abajo |
-| `Ctrl+k` | Ir a ventana arriba |
-| `Ctrl+l` | Ir a ventana derecha |
-
-### Redimensionar Ventanas
-
-| Atajo | Descripción |
-|-------|-------------|
-| `Ctrl+Arriba` | Reducir altura |
-| `Ctrl+Abajo` | Aumentar altura |
-| `Ctrl+Izquierda` | Reducir ancho |
-| `Ctrl+Derecha` | Aumentar ancho |
-
-### Dividir Ventanas
-
-```vim
-:split      " Dividir horizontalmente
-:vsplit     " Dividir verticalmente
-:only       " Cerrar todas las ventanas excepto la actual
-```
+| `Space+ts` | Selector de temas |
 
 ---
 
@@ -312,28 +498,43 @@ Los cambios de Git se muestran en la columna de signos:
 
 ### Gestión de Plugins
 
-- **lazy.nvim** - Gestor de plugins moderno
+- **lazy.nvim** - Gestor de plugins moderno y rápido
 
 ### LSP y Autocompletado
 
-- **mason.nvim** - Gestor de LSP servers
-- **mason-lspconfig.nvim** - Integración con lspconfig
-- **nvim-lspconfig** - Configuración de LSP
-- **blink.cmp** - Autocompletado inteligente
+- **blink.cmp** - Autocompletado ultra-rápido con LSP
+- **friendly-snippets** - Colección de snippets
+- **Mason** - Gestor de LSP servers y herramientas
+- **mason-tool-installer** - Auto-instalador de herramientas
+
+### IA y Asistentes
+
+- **Codeium** - Autocompletado con IA (gratis)
+- **Claude Code** - Asistente de IA en Neovim
+
+### Formateo
+
+- **conform.nvim** - Formateador de código
+- **Prettier** - Formateador para JS/TS/Vue/CSS/HTML
 
 ### Edición
 
-- **nvim-autopairs** - Auto-cierre de paréntesis, llaves, tags HTML
+- **nvim-autopairs** - Auto-cierre de paréntesis, llaves, tags
 - **Comment.nvim** - Comentarios inteligentes
-- **oil.nvim** - Explorador de archivos
+- **oil.nvim** - Explorador de archivos editable
 
-### UI
+### UI y Temas
 
+- **Kanagawa** - Tema japonés (wave y dragon)
+- **Catppuccin** - Tema pastel (mocha y macchiato)
+- **Oh-Lucy** - Tema vibrante
+- **Tokyo Night** - Tema moderno
 - **neo-tree.nvim** - Explorador de archivos en árbol
 - **telescope.nvim** - Buscador fuzzy
 - **which-key.nvim** - Muestra atajos disponibles
 - **gitsigns.nvim** - Indicadores de cambios Git
 - **nvim-colorizer.lua** - Muestra colores en CSS
+- **snacks.nvim** - Utilidades para terminal
 
 ### Lenguajes
 
@@ -354,8 +555,14 @@ Los cambios de Git se muestran en la columna de signos:
 │   └── plugins/
 │       ├── lsp.lua             # Configuración de LSP
 │       ├── blink-cmp.lua       # Configuración de autocompletado
+│       ├── codeium.lua         # Configuración de Codeium
+│       ├── claude-code.lua     # Configuración de Claude Code
+│       ├── formatter.lua       # Configuración de formateo
+│       ├── mason.lua           # Configuración de Mason
+│       ├── themes.lua          # Temas de colores
 │       ├── oil.lua             # Configuración de Oil
 │       └── extras.lua          # Plugins adicionales
+├── CLAUDE.md                   # Instrucciones para Claude
 └── README.md                   # Este archivo
 ```
 
@@ -366,22 +573,25 @@ Los cambios de Git se muestran en la columna de signos:
 - **Leader key:** `Space`
 - **Números de línea:** Relativos
 - **Clipboard:** Integrado con el sistema
-- **Tabs:** 2 espacios
+- **Indentación:** 4 espacios
 - **Búsqueda:** Insensible a mayúsculas (smart case)
 - **Swap files:** Deshabilitados
 - **Mouse:** Habilitado
 - **Colores:** True color (termguicolors)
+- **Auto-formateo:** Al guardar con Prettier
 
 ---
 
 ## Soporte para Lenguajes
 
-- ✅ Vue.js (SFC)
+- ✅ Vue.js (SFC con TypeScript)
 - ✅ TypeScript
-- ✅ JavaScript (React)
+- ✅ JavaScript (React/JSX)
 - ✅ HTML
 - ✅ CSS/SCSS/Less
-- ✅ JSON
+- ✅ JSON/JSONC
+- ✅ Lua
+- ✅ Markdown
 
 ---
 
@@ -390,7 +600,7 @@ Los cambios de Git se muestran en la columna de signos:
 ### Comandos Generales
 
 ```vim
-:w              " Guardar
+:w              " Guardar (y formatear automáticamente)
 :q              " Salir
 :wq             " Guardar y salir
 :q!             " Salir sin guardar
@@ -402,9 +612,11 @@ Los cambios de Git se muestran en la columna de signos:
 
 ```vim
 :Lazy           " Abrir gestor de plugins
+:Lazy sync      " Actualizar todos los plugins
 :Mason          " Abrir gestor de LSP servers
 :checkhealth    " Verificar estado de Neovim
 :LspInfo        " Ver información de LSP activos
+:ConformInfo    " Ver estado del formateador
 ```
 
 ---
@@ -419,11 +631,36 @@ Los cambios de Git se muestran en la columna de signos:
 :Mason
 ```
 
+### Formateo no funciona
+
+```vim
+:ConformInfo
+:Mason          " Instalar Prettier si no está
+```
+
+### Codeium no funciona
+
+```vim
+:Codeium Auth
+:Codeium Enable
+```
+
+### Claude Code no conecta
+
+```bash
+# En terminal
+claude doctor
+```
+
+```vim
+:ClaudeCodeStatus
+```
+
 ### Reinstalar plugins
 
 ```vim
 :Lazy clean
-:Lazy install
+:Lazy sync
 ```
 
 ### Ver logs de LSP
@@ -434,16 +671,22 @@ Los cambios de Git se muestran en la columna de signos:
 
 ---
 
-## Contribuir
+## Resumen de Atajos Rápidos
 
-Si encuentras algún problema o tienes sugerencias, no dudes en abrir un issue.
+### Los Más Usados
+
+| Atajo | Acción |
+|-------|--------|
+| `Space+aa` | Abrir Claude Code |
+| `Space+ff` | Buscar archivos |
+| `Space+e` | Explorador de archivos |
+| `Space+f` | Formatear código |
+| `Ctrl+Shift+h/l` | Navegar entre ventanas |
+| `Shift+h/l` | Navegar entre buffers |
+| `Tab` | Aceptar sugerencia Codeium |
+| `Ctrl+g` | Aceptar sugerencia blink.cmp |
+| `gcc` | Comentar línea |
 
 ---
 
-## Licencia
-
-MIT License - Usa y modifica libremente esta configuración.
-
----
-
-**Hecho con ❤️ para desarrollo con Vue.js y TypeScript**
+**Hecho con ❤️ para desarrollo con Vue.js, TypeScript y IA**
