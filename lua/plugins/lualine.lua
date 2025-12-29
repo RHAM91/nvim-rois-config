@@ -25,7 +25,12 @@ return {
         -- Sección izquierda
         lualine_a = { 'mode' }, -- MODO VISIBLE (NORMAL, INSERT, VISUAL, etc.)
         lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { 'filename' },
+        lualine_c = {
+          {
+            'filename',
+            path = 1, -- 0 = solo nombre, 1 = ruta relativa, 2 = ruta absoluta, 3 = ruta absoluta con ~
+          }
+        },
 
         -- Sección derecha
         lualine_x = { 'encoding', 'fileformat', 'filetype' },

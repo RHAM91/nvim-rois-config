@@ -36,6 +36,7 @@ vim.opt.breakindent = true       -- Mantener indentación en líneas ajustadas
 vim.opt.showbreak = '↪ '         -- Mostrar símbolo al inicio de líneas ajustadas
 vim.opt.signcolumn = 'yes'
 vim.opt.cursorline = true
+--vim.opt.winbar = "%F %m"  -- Mostrar ruta completa del archivo
 
 -- Búsqueda
 vim.opt.ignorecase = true
