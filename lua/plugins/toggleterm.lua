@@ -34,9 +34,9 @@ return {
       },
     })
 
-    -- Atajo para toggle de terminal flotante (Ctrl+t)
-    vim.keymap.set('n', '<C-t>', ':ToggleTerm<CR>', { noremap = true, silent = true, desc = 'Toggle terminal flotante' })
-    vim.keymap.set('t', '<C-t>', '<C-\\><C-n>:ToggleTerm<CR>', { noremap = true, silent = true, desc = 'Toggle terminal flotante' })
+    -- Atajo para toggle de terminal flotante (Ctrl+w)
+    vim.keymap.set('n', '<C-w>', ':ToggleTerm<CR>', { noremap = true, silent = true, desc = 'Toggle terminal flotante' })
+    vim.keymap.set('t', '<C-w>', '<C-\\><C-n>:ToggleTerm<CR>', { noremap = true, silent = true, desc = 'Toggle terminal flotante' })
 
     -- Atajo para salir de la terminal al modo normal (ESC adicional)
     vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { noremap = true, silent = true, desc = 'Salir al modo normal' })
