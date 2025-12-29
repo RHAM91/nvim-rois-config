@@ -159,23 +159,62 @@ This configuration integrates two AI systems that work together:
 - Navigate placeholders: `<C-l>` (next), `<C-h>` (previous)
 - Note: These conflict with Codeium's `<C-l>` when snippet is active
 
-### Smooth Scrolling & Cursor Effects
-Two plugins work together for fluid navigation:
-
-**cinnamon.nvim** - Smooth scroll animations
-- Animates ALL cursor movements (`j`, `k`, `h`, `l`, `gg`, `G`, etc.)
-- Fast response time (3ms delay) for immediate feedback
-- Short animation duration (200ms max) for snappy feel
-- Keymaps enabled: basic (Ctrl+D/U/F/B, searches) and extra (all movements)
-- Configuration in `lua/plugins/cinnamon.lua`
+### Cursor Effects
 
 **smear-cursor.nvim** - Visual cursor trail/smear effect
 - Creates a smooth "trail" effect behind the cursor as it moves
 - Works in both normal and insert mode
-- Customizable stiffness (0.7) and trailing (0.5) for balanced effect
+- Customizable stiffness and trailing for balanced effect
 - 60fps animation (~17ms interval) for smooth visuals
 - Toggle with `:SmearCursorToggle` if needed
 - Configuration in `lua/plugins/smear-cursor.lua`
+
+### Multiple Cursors
+
+**vim-visual-multi** - Advanced multi-cursor editing
+- Modern successor to vim-multiple-cursors with enhanced features
+- Works from normal mode (similar to VS Code/Sublime Text)
+- Two modes: Cursor Mode (normal commands) and Extend Mode (visual-like)
+- Configuration in `lua/plugins/vim-visual-multi.lua`
+
+**Core Keybindings:**
+- `Ctrl+n` - Select word under cursor (repeat for more occurrences)
+- `Ctrl+Down/Up` - Create cursors vertically
+- `n/N` - Next/previous occurrence in multi-cursor mode
+- `[/]` - Navigate between cursors
+- `q` - Skip current occurrence
+- `Q` - Remove current cursor
+- `Tab` - Toggle between Cursor/Extend modes
+- `i/a/I/A` - Enter insert mode at all cursors
+- `Esc` - Exit multi-cursor mode
+
+**Advanced Commands:**
+- `\\A` - Select all occurrences of word
+- `\\/` - Regex search for selections
+- `\\\\` - Add cursor at current position
+- Standard Vim commands work: `c`, `d`, `y`, `r`, `~`
+
+### UI & Notifications
+
+**noice.nvim** - Modern UI for messages, cmdline and notifications
+- Replaces the default Neovim UI for messages and command line
+- Beautiful notifications with nvim-notify integration
+- Command palette in center of screen
+- Long messages automatically sent to split
+- Configuration in `lua/plugins/noice.lua`
+
+**Features:**
+- Bottom search bar with better visibility
+- Floating command line with autocomplete
+- Elegant notification popups with animations
+- Message history and filtering
+- LSP progress messages
+
+**Keybindings:**
+- `<leader>nl` - Show last message
+- `<leader>nh` - Show message history
+- `<leader>nd` - Dismiss all notifications
+- `<leader>ne` - Show error messages
 
 ## Plugin Notes
 
