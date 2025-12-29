@@ -73,14 +73,17 @@ La tecla **Leader** está configurada como **`Espacio`** (Space).
 
 | Atajo | Descripción |
 |-------|-------------|
-| `h` `j` `k` `l` | Izquierda, Abajo, Arriba, Derecha |
+| `h` `j` `k` `l` | Izquierda, Abajo, Arriba, Derecha (líneas visuales con wrap) |
 | `w` | Siguiente palabra |
 | `b` | Palabra anterior |
 | `e` | Final de palabra |
-| `0` | Inicio de línea |
-| `$` | Final de línea |
+| `0` | Inicio de línea visual |
+| `$` | Final de línea visual |
 | `gg` | Inicio del archivo |
 | `G` | Final del archivo |
+| `Space+w` | Activar/desactivar wrap (ajuste de línea) |
+
+> 💡 **Nota:** Con wrap activado, `j`/`k` se mueven por líneas visuales (ajustadas), no por líneas lógicas.
 
 ### Navegación entre Párrafos
 
@@ -607,6 +610,10 @@ Los cambios de Git se muestran en la columna de signos:
 - **Mouse:** Habilitado
 - **Colores:** True color (termguicolors)
 - **Auto-formateo:** Al guardar con Prettier
+- **Wrap:** Activado con ajuste inteligente de líneas
+  - `linebreak` - Rompe en palabras completas (no en medio de palabra)
+  - `breakindent` - Mantiene indentación en líneas ajustadas
+  - `showbreak: '↪ '` - Símbolo visual para líneas continuadas
 
 ---
 

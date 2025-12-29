@@ -33,6 +33,17 @@ vim.keymap.set('v', 'p', '"_dP', { noremap = true, silent = true, desc = 'Paste 
 -- Salir de insert mode con jk
 vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true, desc = 'Salir de insert mode' })
 
+-- ========================================
+-- NAVEGACIÓN EN LÍNEAS AJUSTADAS (WRAP)
+-- ========================================
+
+-- Navegar por líneas visuales (ajustadas) en lugar de líneas lógicas
+-- Útil cuando wrap está activado
+vim.keymap.set('n', 'j', 'gj', { noremap = true, silent = true, desc = 'Bajar línea visual' })
+vim.keymap.set('n', 'k', 'gk', { noremap = true, silent = true, desc = 'Subir línea visual' })
+vim.keymap.set('n', '0', 'g0', { noremap = true, silent = true, desc = 'Inicio línea visual' })
+vim.keymap.set('n', '$', 'g$', { noremap = true, silent = true, desc = 'Final línea visual' })
+
 -- Moverse entre ventanas más fácil (Ctrl+Shift para evitar confusión con Codeium)
 vim.keymap.set('n', '<C-S-h>', '<C-w>h', { noremap = true, silent = true, desc = 'Ventana izquierda' })
 vim.keymap.set('n', '<C-S-j>', '<C-w>j', { noremap = true, silent = true, desc = 'Ventana abajo' })
@@ -61,6 +72,9 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true, de
 
 -- Limpiar búsqueda resaltada
 vim.keymap.set('n', '<Esc>', ':noh<CR>', { noremap = true, silent = true, desc = 'Limpiar búsqueda' })
+
+-- Toggle wrap (activar/desactivar ajuste de línea)
+vim.keymap.set('n', '<leader>w', ':set wrap!<CR>', { noremap = true, silent = true, desc = 'Toggle wrap' })
 
 -- ========================================
 -- NAVEGACIÓN: Saltar entre párrafos/bloques

@@ -30,7 +30,10 @@ vim.opt.tabstop = 4
 vim.opt.smartindent = true
 
 -- Apariencia
-vim.opt.wrap = false
+vim.opt.wrap = true              -- Activar ajuste de línea
+vim.opt.linebreak = true         -- Romper líneas en palabras completas
+vim.opt.breakindent = true       -- Mantener indentación en líneas ajustadas
+vim.opt.showbreak = '↪ '         -- Mostrar símbolo al inicio de líneas ajustadas
 vim.opt.signcolumn = 'yes'
 vim.opt.cursorline = true
 
