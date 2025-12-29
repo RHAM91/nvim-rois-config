@@ -4,14 +4,15 @@ return {
 	event = { "BufReadPost", "BufNewFile" },
 	opts = {
 		-- Símbolo para la línea del scope
-		symbol = "┃", -- Línea vertical
+		symbol = "│", -- Línea vertical
 		-- symbol = "▏", -- Alternativa: más delgada
 		-- symbol = "┃", -- Alternativa: más gruesa
 
 		-- Opciones de dibujado
 		options = {
-			try_as_border = true, -- Intenta dibujar como borde
+			border = "top", -- Muestra borde arriba ('top', 'bottom', 'both', 'none')
 			indent_at_cursor = true, -- Dibuja basado en la posición del cursor
+			try_as_border = true, -- Intenta dibujar como borde completo
 		},
 
 		-- Dibujar en qué eventos
@@ -20,6 +21,8 @@ return {
 			animation = function()
 				return 0 -- Sin animación (puedes poner 20 para animación suave)
 			end,
+			-- Prioridad alta para asegurar que se dibuje
+			priority = 2,
 		},
 
 		-- Mapeos (deshabilitados para evitar conflictos)
