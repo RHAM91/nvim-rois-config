@@ -99,6 +99,41 @@ return {
           changedelete = { text = '~' },
           untracked    = { text = '┆' },
         },
+        current_line_blame = false, -- Mostrar blame en línea actual (desactivado por defecto)
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+          delay = 1000,
+        },
+        on_attach = function(bufnr)
+          local gs = package.loaded.gitsigns
+
+          -- Navegación entre hunks (cambios)
+          vim.keymap.set('n', ']c', function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+          end, { expr = true, buffer = bufnr, desc = 'Siguiente cambio git' })
+
+          vim.keymap.set('n', '[c', function()
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+          end, { expr = true, buffer = bufnr, desc = 'Cambio git anterior' })
+
+          -- Acciones de Git
+          vim.keymap.set('n', '<leader>gp', gs.preview_hunk, { buffer = bufnr, desc = 'Git: Preview cambio' })
+          vim.keymap.set('n', '<leader>gb', gs.blame_line, { buffer = bufnr, desc = 'Git: Blame línea' })
+          vim.keymap.set('n', '<leader>gB', gs.toggle_current_line_blame, { buffer = bufnr, desc = 'Git: Toggle blame' })
+          vim.keymap.set('n', '<leader>gs', gs.stage_hunk, { buffer = bufnr, desc = 'Git: Stage hunk' })
+          vim.keymap.set('n', '<leader>gr', gs.reset_hunk, { buffer = bufnr, desc = 'Git: Reset hunk' })
+          vim.keymap.set('v', '<leader>gs', function() gs.stage_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, { buffer = bufnr, desc = 'Git: Stage hunk' })
+          vim.keymap.set('v', '<leader>gr', function() gs.reset_hunk({vim.fn.line('.'), vim.fn.line('v')}) end, { buffer = bufnr, desc = 'Git: Reset hunk' })
+          vim.keymap.set('n', '<leader>gS', gs.stage_buffer, { buffer = bufnr, desc = 'Git: Stage buffer' })
+          vim.keymap.set('n', '<leader>gu', gs.undo_stage_hunk, { buffer = bufnr, desc = 'Git: Undo stage' })
+          vim.keymap.set('n', '<leader>gR', gs.reset_buffer, { buffer = bufnr, desc = 'Git: Reset buffer' })
+          vim.keymap.set('n', '<leader>gd', gs.diffthis, { buffer = bufnr, desc = 'Git: Diff este archivo' })
+        end,
       })
     end,
   },

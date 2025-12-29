@@ -517,13 +517,39 @@ Oil permite editar directorios como si fueran archivos de texto. Usa los comando
 
 ## Git
 
-### Git Signs
+### Git Signs (Indicadores Visuales)
 
-Los cambios de Git se muestran en la columna de signos:
-- `│` - Línea agregada
-- `│` - Línea modificada
-- `_` - Línea eliminada
+Los cambios de Git se muestran en la columna de signos (como VSCode):
+- `│` (verde) - Línea agregada
+- `│` (amarillo) - Línea modificada
+- `_` (rojo) - Línea eliminada
 - `~` - Línea cambiada y eliminada
+- `┆` (gris) - Archivo sin rastrear (untracked)
+
+### Navegación entre Cambios
+
+| Atajo | Descripción |
+|-------|-------------|
+| `]c` | Ir al siguiente cambio (hunk) |
+| `[c` | Ir al cambio anterior (hunk) |
+
+### Acciones de Git
+
+| Atajo | Descripción |
+|-------|-------------|
+| `Space+gp` | Preview del cambio (ver diff en ventana flotante) |
+| `Space+gb` | Ver quién hizo el cambio (blame) en la línea actual |
+| `Space+gB` | Activar/desactivar blame inline permanente |
+| `Space+gs` | Stage hunk (agregar cambio al área de staging) |
+| `Space+gr` | Reset hunk (descartar cambio) |
+| `Space+gS` | Stage todo el archivo |
+| `Space+gR` | Reset todo el archivo |
+| `Space+gu` | Deshacer último stage |
+| `Space+gd` | Ver diff completo del archivo |
+
+> 💡 **Tip:** En modo visual, `Space+gs` y `Space+gr` funcionan solo en las líneas seleccionadas
+>
+> 💡 **Salir del diff:** Usa `:q` o `Ctrl+w c` para cerrar la ventana del diff
 
 ---
 
