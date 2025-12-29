@@ -1,0 +1,118 @@
+{
+  "Ventana modal": {
+    "prefix": "hmod",
+    "body": [
+      "<div class=\"ventana_modal_\">",
+      "\t<div class=\"cuerpo_modal_\">",
+      "\t\t<div class=\"cabecera_modal_\">",
+      "\t\t\t<b-button type=\"button\" variant=\"outline-danger\" size=\"sm\" @click=\"cerrar\"><i class=\"fas fa-times-circle\"></i></b-button>",
+      "\t\t</div>",
+      "\t\t$1",
+      "\t</div>",
+      "</div>"
+    ],
+    "description": "Inserta ventana modal"
+  },
+  "Ventana modal bootstrap normal": {
+    "prefix": "v:modal",
+    "body": [
+      "<div class=\"ventana_modal\">",
+      "\t<div class=\"cuerpo_ventana_modal\">",
+      "\t\t<div class=\"cabecera_ventana_modal\">",
+      "\t\t\t<button type=\"button\" class=\"btn btn-outline-danger btn-sm\" @click=\"cerrar\"><i class=\"fas fa-times\"></i></button>",
+      "\t\t</div>",
+      "\t\t$1",
+      "\t</div>",
+      "</div>"
+    ],
+    "description": "Inserta ventana modal"
+  },
+  "Tags de ubicacion": {
+    "prefix": "tub",
+    "body": [
+      ":title=\"$store.state.TAGS ? '$1.vue' : ''\""
+    ],
+    "description": "Inserta tags de ubicación"
+  },
+  "Label bootstrap": {
+    "prefix": "b:lab",
+    "body": [
+      "<label for=\"$1\" class=\"form-label\">$0</label>"
+    ],
+    "description": "Inserta un label con los estilos de bootstrap"
+  },
+  "Input boostrap": {
+    "prefix": "b:inp",
+    "body": [
+      "<input type=\"$1\" class=\"form-control form-control-sm\">"
+    ],
+    "description": "Inserta un input con los estilos de bootstrap"
+  },
+  "Columna boostrap": {
+    "prefix": "b:col",
+    "body": [
+      "<div class=\"col-sm-$1 mt-$2\">$0</div>"
+    ],
+    "description": "Inserta columna de bootstrap"
+  },
+  "Tabla boostrap": {
+    "prefix": "b:tab",
+    "body": [
+      "<table class=\"table table-sm table-striped table-bordered\" style=\"font-size: 10px;\">",
+      "\t$0",
+      "</table>"
+    ],
+    "description": "Inserta tabla de bootstrap"
+  },
+  "Boton boostrap": {
+    "prefix": "b:btn",
+    "body": [
+      "<button type=\"$1\" class=\"btn btn-sm btn-$2\">$0</button>"
+    ],
+    "description": "Inserta un boton con los estilos de bootstrap"
+  },
+  "Select boostrap": {
+    "prefix": "b:sel",
+    "body": [
+      "<select class=\"form-control form-control-sm\">",
+      "\t<option value=\"$1\">$0</option>",
+      "</select>"
+    ],
+    "description": "Inserta select de bootstrap"
+  },
+  "Font Trash": {
+    "prefix": "f:trash",
+    "body": [
+      "<i class=\"fas fa-trash\"></i>"
+    ],
+    "description": "Inserta icono trash de fontawesome"
+  },
+  "Font Times": {
+    "prefix": "f:times",
+    "body": [
+      "<i class=\"fas fa-times\"></i>"
+    ],
+    "description": "Inserta icono times (x) de fontawesome"
+  },
+  "Menor que": {
+    "prefix": ":menor-que",
+    "body": [
+      "<$1"
+    ],
+    "description": "Inserta un menor que"
+  },
+  "Mayor que": {
+    "prefix": ":mayor-que",
+    "body": [
+      ">$1"
+    ],
+    "description": "Inserta un mayor que"
+  },
+  "Insertar arroba": {
+    "prefix": ":arroba",
+    "body": [
+      "@$1"
+    ],
+    "description": "Inserta un arroba"
+  }
+}
