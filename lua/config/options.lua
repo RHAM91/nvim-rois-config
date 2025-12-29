@@ -55,3 +55,16 @@ vim.opt.splitbelow = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
+
+-- Auto-reload de archivos cuando cambian externamente
+vim.opt.autoread = true
+
+-- Detectar cambios externos automáticamente al volver a Neovim
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+  pattern = '*',
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd('checktime')
+    end
+  end,
+})
