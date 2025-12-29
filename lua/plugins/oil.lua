@@ -18,8 +18,9 @@ return {
       view_options = {
         show_hidden = false,
       },
-      keymaps ={
-	["<C-c>"] = "actions.close",
+      keymaps = {
+        ["<C-c>"] = "actions.close",
+        ["g."] = "actions.toggle_hidden",  -- Toggle archivos ocultos con g.
       }
     })
 

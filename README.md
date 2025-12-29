@@ -491,12 +491,15 @@ La barra se adapta automáticamente al tema activo.
 | Atajo | Descripción |
 |-------|-------------|
 | `Space+e` | Abrir/cerrar explorador de archivos |
+| `H` (en Neo-tree) | Mostrar/ocultar archivos ocultos |
 
 ### Oil (Explorador alternativo)
 
 | Atajo | Descripción |
 |-------|-------------|
 | `-` | Abrir Oil (editar filesystem como buffer) |
+| `g.` (en Oil) | Mostrar/ocultar archivos ocultos |
+| `Ctrl+c` (en Oil) | Cerrar Oil |
 | `Ctrl+w w` | Alternar entre Oil y preview |
 | `Ctrl+w h/l` | Navegar a ventana izquierda/derecha |
 
@@ -520,8 +523,8 @@ Oil permite editar directorios como si fueran archivos de texto. Usa los comando
 ### Git Signs (Indicadores Visuales)
 
 Los cambios de Git se muestran en la columna de signos (como VSCode):
-- `│` (verde) - Línea agregada
-- `│` (amarillo) - Línea modificada
+- `█` (morado) - Línea agregada
+- `█` (amarillo) - Línea modificada
 - `_` (rojo) - Línea eliminada
 - `~` - Línea cambiada y eliminada
 - `┆` (gris) - Archivo sin rastrear (untracked)

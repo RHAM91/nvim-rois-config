@@ -92,13 +92,15 @@ return {
     config = function()
       require('gitsigns').setup({
         signs = {
-          add          = { text = '│' },
-          change       = { text = '│' },
+          add          = { text = '█' },  -- Bloque completo (más grueso)
+          change       = { text = '█' },  -- Bloque completo (más grueso)
           delete       = { text = '_' },
           topdelete    = { text = '‾' },
           changedelete = { text = '~' },
           untracked    = { text = '┆' },
         },
+        -- Personalizar colores de Git Signs
+        -- Después de la configuración, establecer colores personalizados
         current_line_blame = false, -- Mostrar blame en línea actual (desactivado por defecto)
         current_line_blame_opts = {
           virt_text = true,
@@ -135,6 +137,13 @@ return {
           vim.keymap.set('n', '<leader>gd', gs.diffthis, { buffer = bufnr, desc = 'Git: Diff este archivo' })
         end,
       })
+
+      -- Personalizar colores: líneas nuevas en morado claro
+      vim.cmd([[
+        highlight GitSignsAdd guifg=#A06CD5 ctermfg=140
+        highlight GitSignsAddNr guifg=#A06CD5 ctermfg=140
+        highlight GitSignsAddLn guibg=#2C3E50 ctermbg=236
+      ]])
     end,
   },
 
