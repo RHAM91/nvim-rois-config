@@ -46,7 +46,7 @@ vim.opt.incsearch = true
 
 -- Performance
 vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 200  -- Tiempo de espera para mapeos (reducido para respuesta más rápida)
 
 -- Splits
 vim.opt.splitright = true

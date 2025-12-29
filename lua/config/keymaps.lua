@@ -37,10 +37,14 @@ vim.keymap.set('i', 'jk', '<ESC>', { noremap = true, silent = true, desc = 'Sali
 -- NAVEGACIÓN EN LÍNEAS AJUSTADAS (WRAP)
 -- ========================================
 
+-- NOTA: Los movimientos j/k están manejados por cinnamon.nvim para animación suave
+-- Ver lua/plugins/cinnamon.lua para configuración
+
 -- Navegar por líneas visuales (ajustadas) en lugar de líneas lógicas
 -- Útil cuando wrap está activado
-vim.keymap.set('n', 'j', 'gj', { noremap = true, silent = true, desc = 'Bajar línea visual' })
-vim.keymap.set('n', 'k', 'gk', { noremap = true, silent = true, desc = 'Subir línea visual' })
+-- COMENTADO: Ahora manejado por cinnamon.nvim
+-- vim.keymap.set('n', 'j', 'gj', { noremap = true, silent = true, desc = 'Bajar línea visual' })
+-- vim.keymap.set('n', 'k', 'gk', { noremap = true, silent = true, desc = 'Subir línea visual' })
 vim.keymap.set('n', '0', 'g0', { noremap = true, silent = true, desc = 'Inicio línea visual' })
 vim.keymap.set('n', '$', 'g$', { noremap = true, silent = true, desc = 'Final línea visual' })
 

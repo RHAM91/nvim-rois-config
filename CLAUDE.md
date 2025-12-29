@@ -159,6 +159,24 @@ This configuration integrates two AI systems that work together:
 - Navigate placeholders: `<C-l>` (next), `<C-h>` (previous)
 - Note: These conflict with Codeium's `<C-l>` when snippet is active
 
+### Smooth Scrolling & Cursor Effects
+Two plugins work together for fluid navigation:
+
+**cinnamon.nvim** - Smooth scroll animations
+- Animates ALL cursor movements (`j`, `k`, `h`, `l`, `gg`, `G`, etc.)
+- Fast response time (3ms delay) for immediate feedback
+- Short animation duration (200ms max) for snappy feel
+- Keymaps enabled: basic (Ctrl+D/U/F/B, searches) and extra (all movements)
+- Configuration in `lua/plugins/cinnamon.lua`
+
+**smear-cursor.nvim** - Visual cursor trail/smear effect
+- Creates a smooth "trail" effect behind the cursor as it moves
+- Works in both normal and insert mode
+- Customizable stiffness (0.7) and trailing (0.5) for balanced effect
+- 60fps animation (~17ms interval) for smooth visuals
+- Toggle with `:SmearCursorToggle` if needed
+- Configuration in `lua/plugins/smear-cursor.lua`
+
 ## Plugin Notes
 
 ### nvim-autopairs
