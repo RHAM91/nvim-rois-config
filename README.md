@@ -19,6 +19,7 @@ Configuración completa de Neovim optimizada para desarrollo con Vue.js, TypeScr
 - [Temas](#temas)
 - [Emmet](#emmet)
 - [Comentarios](#comentarios)
+- [Barra de Estado (Statusline)](#barra-de-estado-statusline)
 - [Explorador de Archivos](#explorador-de-archivos)
 - [Búsqueda (Telescope)](#búsqueda-telescope)
 - [Git](#git)
@@ -453,6 +454,30 @@ div#header>h1+p        → <div id="header"><h1></h1><p></p></div>
 
 ---
 
+## Barra de Estado (Statusline)
+
+La barra inferior muestra información importante en todo momento:
+
+### Sección Izquierda
+- **Modo actual** - NORMAL, INSERT, VISUAL, COMMAND, etc. (destacado con color)
+- **Rama Git** - Rama actual del repositorio
+- **Cambios Git** - Líneas añadidas/modificadas/eliminadas
+- **Diagnósticos** - Errores y advertencias del LSP
+
+### Sección Central
+- **Nombre del archivo** - Archivo actual con estado de modificación
+
+### Sección Derecha
+- **Codificación** - UTF-8, etc.
+- **Formato de archivo** - unix, dos, mac
+- **Tipo de archivo** - javascript, vue, typescript, etc.
+- **Progreso** - Porcentaje del archivo
+- **Ubicación** - Línea y columna actual
+
+La barra se adapta automáticamente al tema activo.
+
+---
+
 ## Explorador de Archivos
 
 ### Neo-tree
@@ -466,8 +491,10 @@ div#header>h1+p        → <div id="header"><h1></h1><p></p></div>
 | Atajo | Descripción |
 |-------|-------------|
 | `-` | Abrir Oil (editar filesystem como buffer) |
+| `Ctrl+w w` | Alternar entre Oil y preview |
+| `Ctrl+w h/l` | Navegar a ventana izquierda/derecha |
 
-Oil permite editar directorios como si fueran archivos de texto.
+Oil permite editar directorios como si fueran archivos de texto. Usa los comandos estándar de ventanas de Neovim (`Ctrl+w`) para navegar entre Oil y el preview.
 
 ---
 
@@ -525,6 +552,7 @@ Los cambios de Git se muestran en la columna de signos:
 
 ### UI y Temas
 
+- **lualine.nvim** - Barra de estado (statusline) con información del modo, git, diagnósticos
 - **Kanagawa** - Tema japonés (wave y dragon)
 - **Catppuccin** - Tema pastel (mocha y macchiato)
 - **Oh-Lucy** - Tema vibrante
