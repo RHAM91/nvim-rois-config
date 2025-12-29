@@ -1,0 +1,171 @@
+{
+  "Print to console": {
+    "prefix": "clg",
+    "body": [
+      "console.log($1)"
+    ],
+    "description": "Input de console.log"
+  },
+  "Set components vue": {
+    "prefix": "vcom",
+    "body": [
+      "components: {$1},"
+    ],
+    "description": "Inserta etiqueta componentes"
+  },
+  "Set Data en vue": {
+    "prefix": "vdat",
+    "body": [
+      "name: '$1',",
+      "data() {",
+      "\treturn {",
+      "\t\t$2",
+      "\t}",
+      "},",
+      "methods: {",
+      "\t$3",
+      "},"
+    ],
+    "description": "Inserta la data en vue"
+  },
+  "Funcion asincrona": {
+    "prefix": "fn:a",
+    "body": [
+      "async $1(){$0},"
+    ],
+    "description": "Inserta una función asincrona"
+  },
+  "Funcion normal": {
+    "prefix": "fn:_",
+    "body": [
+      "$1(){$0},"
+    ],
+    "description": "Inserta una función normal"
+  },
+  "Menor que": {
+    "prefix": "|menor-que",
+    "body": [
+      "<$1"
+    ],
+    "description": "Inserta un menor que"
+  },
+  "Mayor que": {
+    "prefix": "|mayor-que",
+    "body": [
+      ">$1"
+    ],
+    "description": "Inserta un mayor que"
+  },
+  "Mayor o igual que": {
+    "prefix": "|mayigualque",
+    "body": [
+      ">=$1"
+    ],
+    "description": "Inserta un mayor o igual que"
+  },
+  "Menor o igual que": {
+    "prefix": "|menigualque",
+    "body": [
+      "<=$1"
+    ],
+    "description": "Inserta un menor o igual que"
+  },
+  "Flechas": {
+    "prefix": "|mf",
+    "body": [
+      "<$0>"
+    ],
+    "description": "Inserta ambos símbolos"
+  },
+  "Flecha": {
+    "prefix": "|flecha",
+    "body": [
+      "=>$0"
+    ],
+    "description": "Inserta una flecha"
+  },
+  "Funcion lambda": {
+    "prefix": "|lambda",
+    "body": [
+      "=>($1)$0"
+    ],
+    "description": "Inserta función lambda"
+  },
+  "API GET": {
+    "prefix": "api:get",
+    "body": [
+      "let f = {",
+      "\tapi: `$1`",
+      "}",
+      "",
+      "let r = await $0"
+    ],
+    "description": "Inserta la funcion de api GET"
+  },
+  "API POST": {
+    "prefix": "api:post",
+    "body": [
+      "let f = {",
+      "\tapi: `$1`,",
+      "\tformulario:{$2}",
+      "}",
+      "",
+      "await $0"
+    ],
+    "description": "Inserta la funcion de api POST"
+  },
+  "respuesta ok": {
+    "prefix": "r:ok",
+    "body": [
+      "return 'ok'"
+    ],
+    "description": "Retorna ok"
+  },
+  "respuesta data": {
+    "prefix": "r:data",
+    "body": [
+      "return {data: $0}"
+    ],
+    "description": "Retorna objeto data"
+  },
+  "Insertar backticks": {
+    "prefix": "i:backticks",
+    "body": [
+      "`$0`"
+    ],
+    "description": "Inserta backticks"
+  },
+  "Interpolacion": {
+    "prefix": "|interpolacion",
+    "body": [
+      "${$0}"
+    ],
+    "description": "Inserta interpolación de template string"
+  },
+  "Insertar arroba": {
+    "prefix": "|arroba",
+    "body": [
+      "@"
+    ],
+    "description": "Inserta arroba"
+  },
+  "Set Template Vue": {
+    "prefix": "vtem",
+    "body": [
+      "<template>",
+      "\t$1",
+      "</template>",
+      "",
+      "<script>",
+      "export default {",
+      "\t$2",
+      "}",
+      "</script>",
+      "",
+      "<style>",
+      "$3",
+      "</style>"
+    ],
+    "description": "Inserta template completo de Vue"
+  }
+}
