@@ -79,6 +79,8 @@ La tecla **Leader** está configurada como **`Espacio`** (Space).
 | `e` | Final de palabra |
 | `0` | Inicio de línea visual |
 | `$` | Final de línea visual |
+| `Space+h` | Ir al inicio de línea (primer carácter no blanco) |
+| `Space+l` | Ir al final de línea |
 | `gg` | Inicio del archivo |
 | `G` | Final del archivo |
 | `Space+w` | Activar/desactivar wrap (ajuste de línea) |
@@ -202,6 +204,7 @@ La tecla **Leader** está configurada como **`Espacio`** (Space).
 | `v` | Modo visual (carácter por carácter) |
 | `V` | Modo visual línea completa |
 | `Ctrl+v` | Modo visual bloque |
+| `L` (mayúscula) | Seleccionar hasta el final de línea |
 
 ### Indentación
 

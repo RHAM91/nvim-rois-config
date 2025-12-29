@@ -44,6 +44,13 @@ vim.keymap.set('n', 'k', 'gk', { noremap = true, silent = true, desc = 'Subir l�
 vim.keymap.set('n', '0', 'g0', { noremap = true, silent = true, desc = 'Inicio línea visual' })
 vim.keymap.set('n', '$', 'g$', { noremap = true, silent = true, desc = 'Final línea visual' })
 
+-- Atajos rápidos para inicio y final de línea con leader
+vim.keymap.set('n', '<leader>h', '^', { noremap = true, silent = true, desc = 'Inicio de línea (primer carácter)' })
+vim.keymap.set('n', '<leader>l', '$', { noremap = true, silent = true, desc = 'Final de línea' })
+
+-- En modo visual: L (shift+l) selecciona hasta el final de la línea
+vim.keymap.set('v', 'L', '$h', { noremap = true, silent = true, desc = 'Seleccionar hasta final de línea' })
+
 -- Moverse entre ventanas más fácil (Ctrl+Shift para evitar confusión con Codeium)
 vim.keymap.set('n', '<C-S-h>', '<C-w>h', { noremap = true, silent = true, desc = 'Ventana izquierda' })
 vim.keymap.set('n', '<C-S-j>', '<C-w>j', { noremap = true, silent = true, desc = 'Ventana abajo' })
