@@ -19,7 +19,7 @@ return {
 		draw = {
 			delay = 0, -- Sin delay para respuesta inmediata
 			animation = function()
-				return 0 -- Sin animación
+				return 15 -- Sin animación
 			end,
 			priority = 2,
 		},
