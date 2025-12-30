@@ -48,7 +48,7 @@ return {
         auto_show_delay_ms = 200,
       },
       ghost_text = {
-        enabled = true,
+        enabled = false,  -- Deshabilitado para evitar conflicto visual con Codeium
       },
     },
     
