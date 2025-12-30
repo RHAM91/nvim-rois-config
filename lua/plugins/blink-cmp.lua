@@ -44,7 +44,7 @@ return {
         },
       },
       documentation = {
-        auto_show = true,
+        auto_show = false,  -- Solo mostrar cuando se presiona <C-Space>
         auto_show_delay_ms = 200,
       },
       ghost_text = {
