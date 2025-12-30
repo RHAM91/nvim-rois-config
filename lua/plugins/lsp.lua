@@ -29,8 +29,8 @@ return {
     config = function()
       require('mason-lspconfig').setup({
         ensure_installed = {
-          'volar',                  -- Vue Language Server (vue-language-server)
-          'vtsls',                  -- TypeScript/JavaScript (NECESARIO para volar)
+          'vue_ls',                 -- Vue Language Server (vue-language-server)
+          'vtsls',                  -- TypeScript/JavaScript (NECESARIO para Vue)
           'html',                   -- HTML
           'cssls',                  -- CSS, SCSS, Less
           'emmet_language_server',  -- Emmet
