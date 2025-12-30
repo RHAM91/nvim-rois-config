@@ -4,13 +4,13 @@ return {
 	event = { "BufReadPost", "BufNewFile" },
 	opts = {
 		-- Símbolo para la línea del scope
-		symbol = "│", -- Línea vertical
+		-- symbol = "│", -- Línea vertical
 		-- symbol = "▏", -- Alternativa: más delgada
-		-- symbol = "┃", -- Alternativa: más gruesa
+		symbol = "┃", -- Alternativa: más gruesa
 
 		-- Opciones de dibujado
 		options = {
-			border = "top", -- Muestra borde arriba ('top', 'bottom', 'both', 'none')
+			border = "both", -- Muestra borde arriba y abajo
 			indent_at_cursor = true, -- Dibuja basado en la posición del cursor
 			try_as_border = true, -- Intenta dibujar como borde completo
 		},
@@ -19,9 +19,8 @@ return {
 		draw = {
 			delay = 0, -- Sin delay para respuesta inmediata
 			animation = function()
-				return 0 -- Sin animación (puedes poner 20 para animación suave)
+				return 0 -- Sin animación
 			end,
-			-- Prioridad alta para asegurar que se dibuje
 			priority = 2,
 		},
 
@@ -38,12 +37,7 @@ return {
 
 		-- Personalizar el color del scope
 		vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", {
-			--fg = "#bb9af7", -- Color púrpura/violeta (ajústalo a tu gusto)
-			-- Otras opciones de color:
-			-- fg = "#7aa2f7", -- Azul
-			-- fg = "#9ece6a", -- Verde
-			 fg = "#ff9e64", -- Naranja
-			-- fg = "#f7768e", -- Rojo/Rosa
+			fg = "#ff9e64", -- Color naranja
 		})
 
 		-- Deshabilitar en ciertos tipos de archivo

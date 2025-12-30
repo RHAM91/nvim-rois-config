@@ -24,6 +24,8 @@ Key plugin files:
 - `formatter.lua` - conform.nvim with Prettier (4-space indentation)
 - `luasnip-config.lua` - Custom snippets for JS/TS/Vue
 - `toggleterm.lua` - Floating terminal configuration
+- `treesitter.lua` - Treesitter for syntax parsing (minimal configuration)
+- `indent-blankline.lua` - mini.indentscope for scope highlighting with vertical line
 
 ## Critical Architecture Notes
 
@@ -216,6 +218,23 @@ This configuration integrates two AI systems that work together:
 - `<leader>nd` - Dismiss all notifications
 - `<leader>ne` - Show error messages
 
+### Treesitter Architecture
+
+**nvim-treesitter** - Minimal syntax parsing for hlchunk.nvim
+- **Highlighting disabled** - To avoid conflicts with existing syntax highlighting
+- **Indentation disabled** - Maintains current indentation behavior
+- **Auto-install enabled** - Parsers install automatically when opening files
+- **Languages supported** - Lua, Vim, JavaScript, TypeScript, Vue, HTML, CSS, JSON, Python, Markdown
+- **Performance safeguard** - Disabled for files larger than 100KB
+- **Primary purpose** - Provides accurate scope detection for hlchunk.nvim visual borders
+- Configuration in `lua/plugins/treesitter.lua`
+
+**Important Notes:**
+- Treesitter is configured minimally to avoid conflicts with your existing setup
+- Only parsing functionality is used, not syntax highlighting or indentation
+- If you experience any issues, Treesitter features can be disabled individually
+- The highlight feature can be enabled by setting `highlight.enable = true` in treesitter.lua if desired
+
 ## Plugin Notes
 
 ### nvim-autopairs
@@ -226,6 +245,15 @@ Alternative file explorer that allows editing directories like text files. Opene
 
 ### ToggleTerm
 Floating terminal with curved borders. Opens with `<C-t>`. Default size: 120x30. Exit terminal mode with `<Esc><Esc>` or use `<C-Shift-h/j/k/l>` to navigate to other windows while in terminal mode.
+
+### Scope Highlighting (mini.indentscope)
+Visual indicator for the current code block/scope with a vertical line.
+- **Vertical line** - Shows `│` marking the current scope/block
+- **Color** - Orange (`#ff9e64`) for high visibility
+- **Works universally** - Functions consistently across all file types (Lua, JS, TS, Vue, etc.)
+- **No performance impact** - Lightweight, only highlights current scope
+- **File exclusions** - Disabled in help, dashboard, terminal, and plugin windows
+- **Note** - Does not show horizontal lines; only vertical scope indicator
 
 ## Formatting Architecture
 
@@ -290,7 +318,7 @@ nvim              # Open Neovim (plugins auto-install on first run)
 - **Smart case search** - Case-insensitive unless uppercase letters are used
 - **Wrap enabled** - Lines wrap at word boundaries with visual indicators (`showbreak = '↪ '`)
 - **Auto-reload** - Files automatically reload when changed externally (FocusGained, BufEnter, CursorHold)
-- **No Treesitter** - Intentionally excluded to avoid parser errors
+- **Treesitter** - Minimal installation for syntax parsing (highlighting disabled, only used by hlchunk.nvim)
 
 ## Theme Configuration
 
