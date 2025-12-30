@@ -45,7 +45,7 @@ return {
           "--single-attribute-per-line",
           "false",
           "--html-whitespace-sensitivity",
-          "ignore",
+          "css",
           "--print-width",
           "150",
         },
