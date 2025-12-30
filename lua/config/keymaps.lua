@@ -127,8 +127,8 @@ vim.keymap.set('n', '<leader>bl', ':buffers<CR>', { noremap = true, silent = tru
 -- EMMET: Expandir abreviaciones
 -- ========================================
 
--- Emmet expandir con Ctrl+e (más fácil que el default Ctrl+y,)
-vim.keymap.set('i', '<C-e>', '<Plug>(emmet-expand-abbr)', { desc = 'Expandir Emmet' })
+-- Emmet expandir con Ctrl+y
+vim.keymap.set('i', '<C-y>', '<Plug>(emmet-expand-abbr)', { desc = 'Expandir Emmet' })
 
 -- Alternativamente, expandir con Tab (si no interfiere con autocompletado)
 -- Esta función expande Emmet solo si estás después de una abreviación válida

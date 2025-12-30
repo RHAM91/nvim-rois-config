@@ -41,10 +41,9 @@ return {
       return vim.fn["codeium#Clear"]()
     end, { expr = true, silent = true, desc = "Codeium: Clear suggestion" })
 
-    -- Trigger manual de completado (útil si se configura manual = true)
-    vim.keymap.set("i", "<C-Space>", function()
-      return vim.fn["codeium#Complete"]()
-    end, { expr = true, silent = true, desc = "Codeium: Trigger completion" })
+    -- Nota: <C-Space> eliminado para evitar conflicto con blink.cmp
+    -- Codeium funciona en modo automático (codeium_manual = false)
+    -- Si necesitas forzar sugerencias, usa <C-;> para ciclar
 
     -- Abrir Codeium Chat
     vim.keymap.set("n", "<leader>cc", function()
