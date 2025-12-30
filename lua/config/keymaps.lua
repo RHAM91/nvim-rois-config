@@ -81,7 +81,9 @@ vim.keymap.set('v', '<S-A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = t
 
 -- Alternativa con j/k (solo si las flechas no te gustan, descomentar si prefieres)
 vim.keymap.set('n', '<S-A-j>', ':m .+1<CR>==', { noremap = true, silent = true, desc = 'Mover línea abajo' })
+vim.keymap.set('n', '<S-A-k>', ':m .-2<CR>==', { noremap = true, silent = true, desc = 'Mover línea arriba' })
 vim.keymap.set('v', '<S-A-j>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true, desc = 'Mover bloque abajo' })
+vim.keymap.set('v', '<S-A-k>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true, desc = 'Mover bloque arriba' })
 
 -- Limpiar búsqueda resaltada
 vim.keymap.set('n', '<Esc>', ':noh<CR>', { noremap = true, silent = true, desc = 'Limpiar búsqueda' })
