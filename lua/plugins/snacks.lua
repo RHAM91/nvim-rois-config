@@ -35,7 +35,16 @@ return {
             sections = {
                 { section = "header" },
                 { section = "keys", gap = 1, padding = 1 },
-                { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+                { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1, cwd = true, action = function() end },
+                {
+                    section = "terminal",
+                    cmd = "pwd",
+                    icon = " ",
+                    title = "Current Directory",
+                    indent = 2,
+                    padding = 1,
+                    height = 1,
+                },
             },
         },
     },
