@@ -17,9 +17,7 @@ return {
                     local session_file = persistence.current()
                     local has_session = session_file and vim.fn.filereadable(session_file) == 1
 
-                    local keys = {
-                        { icon = " ", key = "f", desc = "Find Files", action = ":Telescope find_files" },
-                    }
+                    local keys = {}
 
                     -- Si hay sesión, mostrar "Restore Session", sino mostrar "Abrir Oil"
                     if has_session then
