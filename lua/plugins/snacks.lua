@@ -12,11 +12,7 @@ return {
             enabled = true,
             preset = {
                 keys = {
-                    { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-                    { icon = " ", key = "r", desc = "Recent Files", action = ":Telescope oldfiles" },
-                    { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-                    { icon = " ", key = "g", desc = "Find Text", action = ":Telescope live_grep" },
-                    { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+                    { icon = " ", key = "f", desc = "Find Files", action = ":Telescope find_files" },
                     { icon = " ", key = "q", desc = "Quit", action = ":qa" },
                 },
                 header = [[
@@ -30,7 +26,7 @@ return {
             sections = {
                 { section = "header" },
                 { section = "keys", gap = 1, padding = 1 },
-                { section = "startup" },
+                { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
             },
         },
     },
