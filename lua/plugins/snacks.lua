@@ -11,11 +11,38 @@ return {
         dashboard = {
             enabled = true,
             preset = {
-                keys = {
-                    { icon = " ", key = "f", desc = "Find Files", action = ":Telescope find_files" },
-                    { icon = " ", key = "r", desc = "Restore Session", action = function() require("persistence").load() end },
-                    { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-                },
+                keys = function()
+                    -- Verificar si existe una sesión para el directorio actual
+                    local persistence = require("persistence")
+                    local session_file = persistence.current()
+                    local has_session = session_file and vim.fn.filereadable(session_file) == 1
+
+                    local keys = {
+                        { icon = " ", key = "f", desc = "Find Files", action = ":Telescope find_files" },
+                    }
+
+                    -- Si hay sesión, mostrar "Restore Session", sino mostrar "Abrir Oil"
+                    if has_session then
+                        table.insert(keys, { icon = " ", key = "r", desc = "Restore Session", action = function() require("persistence").load() end })
+                    else
+                        table.insert(keys, { icon = " ", key = "o", desc = "Abrir Oil", action = function()
+                            -- El dashboard se cierra automáticamente antes de ejecutar la acción
+                            -- Usamos vim.schedule y noautocmd para evitar conflictos con los autocommands del dashboard
+                            vim.schedule(function()
+                                -- Crear un buffer vacío sin disparar autocommands
+                                vim.cmd("noautocmd enew")
+                                -- Esperar otro ciclo y abrir Oil
+                                vim.schedule(function()
+                                    vim.cmd("Oil")
+                                end)
+                            end)
+                        end })
+                    end
+
+                    table.insert(keys, { icon = " ", key = "q", desc = "Quit", action = ":qa" })
+
+                    return keys
+                end,
                 header = [[
           ░█░          ████          ░█░          
          ██▒██       ██░░░░██       ██░██░        
