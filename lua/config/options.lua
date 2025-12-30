@@ -69,18 +69,3 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHo
     end
   end,
 })
-
--- Restaurar sesión automáticamente al abrir Neovim sin archivos
-vim.api.nvim_create_autocmd('VimEnter', {
-  group = vim.api.nvim_create_augroup('restore_session', { clear = true }),
-  callback = function()
-    -- Solo restaurar si:
-    -- 1. No se pasaron argumentos (archivos) al abrir Neovim
-    -- 2. El directorio actual no es el home
-    -- 3. Existe una sesión guardada
-    if vim.fn.argc() == 0 and vim.fn.getcwd() ~= vim.fn.expand('~') then
-      require('persistence').load()
-    end
-  end,
-  nested = true,
-})

@@ -13,6 +13,7 @@ return {
             preset = {
                 keys = {
                     { icon = " ", key = "f", desc = "Find Files", action = ":Telescope find_files" },
+                    { icon = " ", key = "r", desc = "Restore Session", action = function() require("persistence").load() end },
                     { icon = " ", key = "q", desc = "Quit", action = ":qa" },
                 },
                 header = [[

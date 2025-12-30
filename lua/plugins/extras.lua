@@ -208,7 +208,7 @@ return {
     ft = 'vue',
   },
 
-  -- Persistence: Restaurar sesión automáticamente
+  -- Persistence: Restaurar sesión automáticamente por directorio
   {
     'folke/persistence.nvim',
     event = 'BufReadPre',
@@ -217,9 +217,33 @@ return {
       options = { 'buffers', 'curdir', 'tabpages', 'winsize' }, -- Qué guardar
     },
     keys = {
-      { '<leader>qs', function() require('persistence').load() end, desc = 'Restaurar sesión' },
-      { '<leader>ql', function() require('persistence').load({ last = true }) end, desc = 'Restaurar última sesión' },
+      { '<leader>qs', function() require('persistence').load() end, desc = 'Restaurar sesión del directorio actual' },
+      { '<leader>ql', function() require('persistence').load({ last = true }) end, desc = 'Restaurar última sesión global' },
       { '<leader>qd', function() require('persistence').stop() end, desc = 'No guardar sesión al salir' },
     },
+    config = function(_, opts)
+      require('persistence').setup(opts)
+
+      -- Restaurar automáticamente la sesión del directorio actual al abrir Neovim
+      -- Solo si se abrió sin archivos y existe una sesión para este directorio
+      vim.api.nvim_create_autocmd("VimEnter", {
+        callback = function()
+          -- Solo restaurar si:
+          -- 1. No se pasaron argumentos (archivos) a nvim
+          -- 2. No estamos en el directorio home
+          -- 3. Existe una sesión guardada para este directorio
+          if vim.fn.argc() == 0 and vim.fn.getcwd() ~= vim.fn.expand('~') then
+            local session_file = require('persistence').current()
+            if session_file and vim.fn.filereadable(session_file) == 1 then
+              -- Esperar un poco para que el dashboard se muestre primero
+              vim.defer_fn(function()
+                -- No cargar automáticamente, dejar que el usuario presione 'r' en el dashboard
+              end, 100)
+            end
+          end
+        end,
+        nested = true,
+      })
+    end,
   },
 }
