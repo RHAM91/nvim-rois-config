@@ -213,12 +213,20 @@ La tecla **Leader** está configurada como **`Espacio`** (Space).
 | `<` | Indentar a la izquierda (mantiene selección) |
 | `>` | Indentar a la derecha (mantiene selección) |
 
-### Mover Líneas
+### Mover Líneas (Modo Normal y Visual)
 
-| Atajo | Descripción |
-|-------|-------------|
-| `J` | Mover líneas seleccionadas hacia abajo |
-| `K` | Mover líneas seleccionadas hacia arriba |
+| Atajo | Modo | Descripción |
+|-------|------|-------------|
+| `Shift+Alt+Abajo` | Normal | Mover línea actual hacia abajo |
+| `Shift+Alt+Arriba` | Normal | Mover línea actual hacia arriba |
+| `Shift+Alt+j` | Normal | Mover línea actual hacia abajo (alternativa) |
+| `Shift+Alt+k` | Normal | Mover línea actual hacia arriba (alternativa) |
+| `Shift+Alt+Abajo` | Visual | Mover bloque seleccionado hacia abajo |
+| `Shift+Alt+Arriba` | Visual | Mover bloque seleccionado hacia arriba |
+| `Shift+Alt+j` | Visual | Mover bloque seleccionado hacia abajo (alternativa) |
+| `Shift+Alt+k` | Visual | Mover bloque seleccionado hacia arriba (alternativa) |
+
+> 💡 **Nota:** Estas combinaciones son similares a las de VSCode. El ajuste automático de indentación se mantiene al mover el código.
 
 ---
 
