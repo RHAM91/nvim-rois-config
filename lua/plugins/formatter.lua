@@ -39,7 +39,16 @@ return {
     -- Configuración de Prettier con 4 espacios
     formatters = {
       prettier = {
-        prepend_args = { "--tab-width", "4" },
+        prepend_args = {
+          "--tab-width",
+          "4",
+          "--single-attribute-per-line",
+          "false",
+          "--html-whitespace-sensitivity",
+          "ignore",
+          "--print-width",
+          "150",
+        },
       },
     },
 
