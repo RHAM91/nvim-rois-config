@@ -46,6 +46,7 @@ return {
 				"help",
 				"alpha",
 				"dashboard",
+				"snacks_dashboard",
 				"neo-tree",
 				"Trouble",
 				"lazy",
