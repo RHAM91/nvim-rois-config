@@ -220,6 +220,30 @@ return {
       { '<leader>qs', function() require('persistence').load() end, desc = 'Restaurar sesión del directorio actual' },
       { '<leader>ql', function() require('persistence').load({ last = true }) end, desc = 'Restaurar última sesión global' },
       { '<leader>qd', function() require('persistence').stop() end, desc = 'No guardar sesión al salir' },
+      { '<leader>qD', function()
+        local persistence = require('persistence')
+        -- Primero detener el guardado automático
+        persistence.stop()
+        -- Luego borrar la sesión existente
+        local session_file = persistence.current()
+        if session_file and vim.fn.filereadable(session_file) == 1 then
+          vim.fn.delete(session_file)
+          vim.notify('Sesión borrada (no se guardará al salir): ' .. vim.fn.fnamemodify(session_file, ':t'), vim.log.levels.INFO)
+        else
+          vim.notify('No hay sesión guardada para este directorio', vim.log.levels.WARN)
+        end
+      end, desc = 'Borrar sesión del directorio actual' },
+      { '<leader>qx', function()
+        -- Guardar sesión limpia sin el buffer actual
+        local current_buf = vim.api.nvim_get_current_buf()
+        -- Cerrar el buffer actual
+        require('snacks').bufdelete()
+        -- Esperar un poco y luego guardar la sesión
+        vim.defer_fn(function()
+          require('persistence').save()
+          vim.notify('Sesión actualizada (buffer removido)', vim.log.levels.INFO)
+        end, 100)
+      end, desc = 'Guardar sesión sin buffer actual' },
     },
     config = function(_, opts)
       require('persistence').setup(opts)
