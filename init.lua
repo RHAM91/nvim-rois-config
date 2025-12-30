@@ -1,3 +1,11 @@
+-- Configurar PowerShell como shell en Windows
+if vim.fn.has('win32') == 1 then
+  vim.o.shell = 'pwsh.exe -NoLogo'
+  vim.o.shellcmdflag = '-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command'
+  vim.o.shellquote = ''
+  vim.o.shellxquote = ''
+end
+
 require("config.options")
 require("config.keymaps")
 require("config.lazy")
