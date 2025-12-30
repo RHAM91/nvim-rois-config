@@ -207,4 +207,19 @@ return {
     'posva/vim-vue',
     ft = 'vue',
   },
+
+  -- Persistence: Restaurar sesión automáticamente
+  {
+    'folke/persistence.nvim',
+    event = 'BufReadPre',
+    opts = {
+      dir = vim.fn.expand(vim.fn.stdpath('state') .. '/sessions/'), -- Directorio para sesiones
+      options = { 'buffers', 'curdir', 'tabpages', 'winsize' }, -- Qué guardar
+    },
+    keys = {
+      { '<leader>qs', function() require('persistence').load() end, desc = 'Restaurar sesión' },
+      { '<leader>ql', function() require('persistence').load({ last = true }) end, desc = 'Restaurar última sesión' },
+      { '<leader>qd', function() require('persistence').stop() end, desc = 'No guardar sesión al salir' },
+    },
+  },
 }
