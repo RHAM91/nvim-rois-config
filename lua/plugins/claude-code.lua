@@ -34,9 +34,9 @@ return {
     },
     config = true,
     keys = {
-      { "<leader>aa", "<cmd>ClaudeCode<CR>", desc = "Claude: Toggle" },
-      { "<leader>ac", "<cmd>ClaudeCodeChat<CR>", desc = "Claude: Chat" },
-      { "<leader>ar", "<cmd>ClaudeCodeRefresh<CR>", desc = "Claude: Refresh" },
+      { "<leader>cl", "<cmd>ClaudeCode<CR>", desc = "Claude Code: Toggle" },
+      { "<leader>ch", "<cmd>ClaudeCodeChat<CR>", desc = "Claude Code: Chat" },
+      { "<leader>cr", "<cmd>ClaudeCodeRefresh<CR>", desc = "Claude Code: Refresh" },
     },
   },
 }

@@ -221,7 +221,10 @@ end, { desc = 'Tema: Selector (Snacks)' })
 -- ========================================
 
 -- Nota: Los atajos principales están configurados en lua/plugins/claude-code.lua
+-- <leader>cl - Toggle Claude Code
+-- <leader>ch - Claude Code Chat
+-- <leader>cr - Claude Code Refresh
 -- Atajos adicionales:
 
 -- Verificar estado de Claude Code
-vim.keymap.set('n', '<leader>as', ':ClaudeCodeStatus<CR>', { desc = 'Claude: Status' })
+vim.keymap.set('n', '<leader>cs', ':ClaudeCodeStatus<CR>', { desc = 'Claude Code: Status' })

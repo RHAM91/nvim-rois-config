@@ -51,7 +51,9 @@ This configuration carefully manages conflicts between multiple completion and n
 
 6. **ESC clears search highlight** - Remapped to `:noh` instead of default behavior (keymaps.lua:87)
 
-7. **Avante.nvim uses `<leader>av` prefix** - Changed from default `<leader>aa` to avoid conflict with Claude Code toggle. Both Avante and Claude Code share `<leader>ar` (refresh) but work on different contexts
+7. **Claude Code uses `<leader>c` prefix** - Changed from default `<leader>a` to avoid conflicts. Uses `<leader>cl` (toggle), `<leader>ch` (chat), `<leader>cr` (refresh), `<leader>cs` (status)
+
+8. **Avante.nvim uses default `<leader>a` prefix** - Uses `<leader>aa` (ask), `<leader>ae` (edit), `<leader>ar` (refresh), `<leader>at` (toggle), etc. No conflicts with Claude Code or Codeium
 
 ### Auto-reload Architecture
 Files automatically reload when changed externally using autocmds on:
@@ -166,7 +168,7 @@ This configuration integrates three AI systems that work together:
 - **No conflicts with Codeium** - Uses different keybindings
 
 **Core Keybindings:**
-- `<leader>av` - Ask Avante (normal/visual mode)
+- `<leader>aa` - Ask Avante (normal/visual mode)
 - `<leader>ae` - Edit with Avante (visual mode)
 - `<leader>at` - Toggle Avante sidebar
 - `<leader>af` - Focus Avante sidebar
@@ -197,7 +199,12 @@ This configuration integrates three AI systems that work together:
 - Terminal provider: auto (uses snacks.nvim if available)
 - Auto-starts on Neovim launch
 - Diff integration with vertical split, auto-close on accept
-- Keybindings: `<leader>aa` (toggle), `<leader>ac` (chat), `<leader>as` (status)
+
+**Keybindings:**
+- `<leader>cl` - Toggle Claude Code
+- `<leader>ch` - Claude Code Chat
+- `<leader>cr` - Claude Code Refresh
+- `<leader>cs` - Claude Code Status
 
 ### LuaSnip (Custom Snippets)
 - Custom snippets defined for JavaScript, TypeScript, and Vue

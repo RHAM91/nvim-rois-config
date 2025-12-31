@@ -90,12 +90,12 @@ return {
   },
 
   -- ========================================
-  -- KEYMAPS PERSONALIZADOS: Evitar conflictos con Claude Code
+  -- KEYMAPS PERSONALIZADOS
   -- ========================================
   keys = {
-    -- ATAJOS PRINCIPALES (usamos <leader>av para avante)
+    -- ATAJOS PRINCIPALES
     {
-      "<leader>av",
+      "<leader>aa",
       function()
         require("avante.api").ask()
       end,
@@ -118,7 +118,7 @@ return {
       desc = "Avante: Refresh",
     },
 
-    -- ATAJOS DE SIDEBAR (evitamos <leader>aa que usa Claude Code)
+    -- ATAJOS DE SIDEBAR
     {
       "<leader>at",
       function()
