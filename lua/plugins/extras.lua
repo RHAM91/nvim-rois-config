@@ -147,9 +147,10 @@ return {
     end,
   },
 
-  -- Telescope: Fuzzy finder
+  -- Telescope: Fuzzy finder (DISABLED - replaced by Snacks picker)
   {
     'nvim-telescope/telescope.nvim',
+    enabled = false, -- Disabled in favor of Snacks picker
     cmd = 'Telescope',
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {

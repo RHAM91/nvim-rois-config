@@ -8,6 +8,14 @@ return {
         quickfile = { enabled = true },
         statuscolumn = { enabled = true },
         words = { enabled = false },
+        picker = {
+            enabled = true,
+            ui_select = true, -- Use picker for vim.ui.select
+            matcher = {
+                fuzzy = true,
+                smartcase = true,
+            },
+        },
         dashboard = {
             enabled = true,
             preset = {
@@ -154,21 +162,55 @@ header = [[
         },
     },
     keys = {
+        -- Dashboard & Scratch
         { "<leader>db", function() Snacks.dashboard() end, desc = "Dashboard" },
         { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
         { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+
+        -- Notifications
         { "<leader>dh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+        { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+
+        -- Buffer management
         { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+
+        -- File operations
         { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
+
+        -- Git
         { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse", mode = { "n", "v" } },
         { "<leader>gb", function() Snacks.git.blame_line() end, desc = "Git Blame Line" },
         { "<leader>gf", function() Snacks.lazygit.log_file() end, desc = "Lazygit Current File History" },
         { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
         { "<leader>gl", function() Snacks.lazygit.log() end, desc = "Lazygit Log (cwd)" },
-        { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
+
+        -- Terminal & Navigation
         { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal", mode = { "n", "t" } },
         { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
         { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
+
+        -- Picker: File navigation (replacing Telescope)
+        { "<leader><leader>", function() Snacks.picker.files() end, desc = "Find Files" },
+        { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+        { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent Files" },
+
+        -- Picker: Search
+        { "<leader>fg", function() Snacks.picker.grep() end, desc = "Live Grep" },
+        { "<leader>fw", function() Snacks.picker.grep_word() end, desc = "Grep Word Under Cursor" },
+        { "<leader>fW", function() Snacks.picker.grep_buffers() end, desc = "Grep in Open Buffers" },
+
+        -- Picker: Git
+        { "<leader>gc", function() Snacks.picker.git_log() end, desc = "Git Commits" },
+        { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
+
+        -- Picker: Navigation & Utility
+        { "<leader>fh", function() Snacks.picker.help() end, desc = "Help Pages" },
+        { "<leader>fk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+        { "<leader>fc", function() Snacks.picker.commands() end, desc = "Commands" },
+        { "<leader>fd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+        { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jump List" },
+        { "<leader>fm", function() Snacks.picker.marks() end, desc = "Marks" },
+        { "<leader>ft", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
     },
     config = function(_, opts)
         local snacks = require("snacks")

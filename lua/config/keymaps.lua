@@ -206,13 +206,15 @@ vim.keymap.set('n', '<leader>tt', function()
   set_theme('tokyonight-night')
 end, { desc = 'Tema: Tokyo Night' })
 
--- Selector de temas con Telescope (si está instalado)
+-- Selector de temas con Snacks picker
 vim.keymap.set('n', '<leader>ts', function()
-  local ok = pcall(vim.cmd, 'Telescope colorscheme')
-  if not ok then
-    vim.notify('Telescope no disponible. Usa <leader>tc, tk, tl para cambiar temas', vim.log.levels.WARN)
+  local ok, snacks = pcall(require, 'snacks')
+  if ok and snacks.picker then
+    snacks.picker.colorschemes()
+  else
+    vim.notify('Snacks picker no disponible. Usa <leader>tc, tk, tl para cambiar temas', vim.log.levels.WARN)
   end
-end, { desc = 'Tema: Selector (Telescope)' })
+end, { desc = 'Tema: Selector (Snacks)' })
 
 -- ========================================
 -- CLAUDE CODE: Asistente de IA
