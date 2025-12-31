@@ -205,6 +205,7 @@ This configuration integrates three AI systems that work together:
 - `<leader>ch` - Claude Code Chat
 - `<leader>cr` - Claude Code Refresh
 - `<leader>cs` - Claude Code Status
+- `<leader>cd` - Open Anthropic Dashboard (check credits and billing)
 
 ### LuaSnip (Custom Snippets)
 - Custom snippets defined for JavaScript, TypeScript, and Vue

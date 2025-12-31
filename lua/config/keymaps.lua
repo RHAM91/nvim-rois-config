@@ -228,3 +228,25 @@ end, { desc = 'Tema: Selector (Snacks)' })
 
 -- Verificar estado de Claude Code
 vim.keymap.set('n', '<leader>cs', ':ClaudeCodeStatus<CR>', { desc = 'Claude Code: Status' })
+
+-- Abrir dashboard de Anthropic para ver créditos
+vim.keymap.set('n', '<leader>cd', function()
+  local url = 'https://console.anthropic.com/settings/billing'
+  local cmd
+
+  -- Detectar el sistema operativo y usar el comando apropiado
+  if vim.fn.has('mac') == 1 then
+    cmd = 'open'
+  elseif vim.fn.has('unix') == 1 then
+    cmd = 'xdg-open'
+  elseif vim.fn.has('win32') == 1 then
+    cmd = 'start'
+  else
+    vim.notify('Sistema operativo no soportado para abrir URLs', vim.log.levels.ERROR)
+    return
+  end
+
+  -- Abrir el navegador
+  vim.fn.jobstart({ cmd, url }, { detach = true })
+  vim.notify('Abriendo dashboard de Anthropic...', vim.log.levels.INFO)
+end, { desc = 'Claude: Dashboard (ver créditos)' })
