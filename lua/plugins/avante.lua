@@ -68,6 +68,18 @@ return {
         align = "center",
         rounded = true,
       },
+      -- Configuración de la ventana Ask (ventana flotante)
+      ask = {
+        floating = true, -- Abrir ask en ventana flotante
+        start_insert = true, -- Entrar automáticamente en modo insert
+        border = "rounded", -- Bordes redondeados
+        focus_on_apply = "ours", -- Mantener foco en nuestro código al aplicar
+      },
+      -- Configuración de la ventana Edit (ya usa ventana flotante por defecto)
+      edit = {
+        border = "rounded", -- Bordes redondeados
+        start_insert = true, -- Entrar automáticamente en modo insert
+      },
     },
 
     -- ========================================
