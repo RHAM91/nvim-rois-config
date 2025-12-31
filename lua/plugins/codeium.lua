@@ -49,5 +49,24 @@ return {
     vim.keymap.set("n", "<leader>cc", function()
       vim.fn["codeium#Chat"]()
     end, { desc = "Codeium: Open Chat" })
+
+    -- Desactivar Codeium automáticamente en ventanas del picker
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "snacks_picker", "snacks_picker_input", "snacks_picker_list" },
+      callback = function()
+        vim.b.codeium_enabled = false
+      end,
+      desc = "Desactivar Codeium en Snacks picker"
+    })
+
+    -- Desactivar Codeium en buffers de tipo prompt (usado por picker)
+    vim.api.nvim_create_autocmd("BufEnter", {
+      callback = function()
+        if vim.bo.buftype == "prompt" then
+          vim.b.codeium_enabled = false
+        end
+      end,
+      desc = "Desactivar Codeium en buffers tipo prompt"
+    })
   end,
 }
