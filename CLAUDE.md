@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Idioma / Language
+
+**IMPORTANTE: Todas las respuestas de Claude Code deben ser en ESPAÑOL.**
+
+Claude Code debe responder siempre en español al usuario, incluyendo explicaciones, comentarios, mensajes de error, y cualquier otra comunicación. Los comentarios en el código también deben estar en español cuando sea apropiado.
+
 ## Overview
 
 This is a Neovim configuration optimized for Vue.js, TypeScript, and JavaScript development with AI assistance integration (Codeium and Claude Code). The configuration uses lazy.nvim for plugin management and follows a modular structure.
