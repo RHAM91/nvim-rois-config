@@ -55,6 +55,7 @@ return {
       auto_set_keymaps = true,
       auto_apply_diff_after_generation = false,
       support_paste_from_clipboard = true,
+      enable_token_counting = true, -- Monitorear uso de tokens (útil para controlar costos)
     },
 
     -- ========================================
