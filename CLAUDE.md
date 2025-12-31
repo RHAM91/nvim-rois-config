@@ -10,7 +10,7 @@ Claude Code debe responder siempre en español al usuario, incluyendo explicacio
 
 ## Overview
 
-This is a Neovim configuration optimized for Vue.js, TypeScript, and JavaScript development with AI assistance integration (Codeium and Claude Code). The configuration uses lazy.nvim for plugin management and follows a modular structure.
+This is a Neovim configuration optimized for Vue.js, TypeScript, and JavaScript development with AI assistance integration (Codeium for inline completions, Avante.nvim for AI ask & edit operations, and Claude Code). The configuration uses lazy.nvim for plugin management and follows a modular structure.
 
 ## Configuration Structure
 
@@ -25,7 +25,8 @@ The configuration is organized modularly:
 Key plugin files:
 - `lsp.lua` - LSP configuration using Neovim 0.11+ `vim.lsp.config` API
 - `blink-cmp.lua` - Fast completion engine
-- `codeium.lua` - AI code suggestions
+- `codeium.lua` - AI code suggestions (inline completions)
+- `avante.lua` - Avante.nvim AI assistant (ask & edit operations)
 - `claude-code.lua` - Claude Code integration
 - `formatter.lua` - conform.nvim with Prettier (4-space indentation)
 - `luasnip-config.lua` - Custom snippets for JS/TS/Vue
@@ -49,6 +50,8 @@ This configuration carefully manages conflicts between multiple completion and n
 5. **LuaSnip navigation conflicts with Codeium** - Both want `<C-l>`. LuaSnip takes precedence when a snippet is active
 
 6. **ESC clears search highlight** - Remapped to `:noh` instead of default behavior (keymaps.lua:87)
+
+7. **Avante.nvim uses `<leader>av` prefix** - Changed from default `<leader>aa` to avoid conflict with Claude Code toggle. Both Avante and Claude Code share `<leader>ar` (refresh) but work on different contexts
 
 ### Auto-reload Architecture
 Files automatically reload when changed externally using autocmds on:
@@ -134,7 +137,7 @@ After configuration, servers are enabled with `vim.lsp.enable('<server_name>')`.
 
 ## AI Integration Architecture
 
-This configuration integrates two AI systems that work together:
+This configuration integrates three AI systems that work together:
 
 ### blink.cmp (LSP Completion)
 - Fast completion engine with `preset='enter'` keymap
@@ -154,12 +157,47 @@ This configuration integrates two AI systems that work together:
   - `<C-x>` - Clear suggestion
 - **Important**: `<C-Space>` triggers Codeium, not blink.cmp (codeium.lua:45-47)
 
+### Avante.nvim (AI Ask & Edit)
+- **AI-powered code assistant** specialized in ask and edit operations
+- **Mode**: Legacy (without automatic tool execution)
+- **Provider**: Claude Haiku 4.5 (fast and cost-effective)
+- **Auto-suggestions disabled** - Only used for explicit ask and edit commands
+- **Sidebar position**: Right side (30% width)
+- **No conflicts with Codeium** - Uses different keybindings
+
+**Core Keybindings:**
+- `<leader>av` - Ask Avante (normal/visual mode)
+- `<leader>ae` - Edit with Avante (visual mode)
+- `<leader>at` - Toggle Avante sidebar
+- `<leader>af` - Focus Avante sidebar
+- `<leader>ah` - Show conversation history
+- `<leader>ar` - Refresh Avante
+
+**Sidebar Navigation** (dentro del sidebar de Avante):
+- `<CR>` (normal) / `<C-s>` (insert) - Submit query
+- `<Esc>` o `q` - Close sidebar
+- `@` - Add file to context
+- `d` - Remove file from context
+- `A` - Apply all suggestions
+- `a` - Apply suggestion at cursor
+
+**Conflict Resolution** (al aplicar cambios):
+- `co` - Choose current version
+- `ct` - Choose incoming version
+- `]x` / `[x` - Next/previous conflict
+
+**Architecture Notes:**
+- Works independently from Codeium (no keybinding conflicts)
+- API key configured in `avante.lua` or via `ANTHROPIC_API_KEY` environment variable
+- Automatically disabled in Snacks picker windows
+- Requires global statusline (`laststatus = 3`) for proper view collapsing
+
 ### Claude Code Integration
 - Positioned on the right side (30% width)
 - Terminal provider: auto (uses snacks.nvim if available)
 - Auto-starts on Neovim launch
 - Diff integration with vertical split, auto-close on accept
-- Keybindings: `<leader>aa` (toggle), `<leader>ac` (chat), `<leader>ar` (refresh)
+- Keybindings: `<leader>aa` (toggle), `<leader>ac` (chat), `<leader>as` (status)
 
 ### LuaSnip (Custom Snippets)
 - Custom snippets defined for JavaScript, TypeScript, and Vue
