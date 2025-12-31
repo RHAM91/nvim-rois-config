@@ -156,13 +156,13 @@ return {
   config = function(_, opts)
     require("avante").setup(opts)
 
-    -- Configurar API key si no está en variable de entorno
-    -- IMPORTANTE: Mejor usar variable de entorno ANTHROPIC_API_KEY
-    local api_key = "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"
-
-    if api_key and api_key ~= "" then
-      vim.env.ANTHROPIC_API_KEY = api_key
-    end
+    -- El API key se obtiene automáticamente de la variable de entorno ANTHROPIC_API_KEY
+    -- Configúralo en tu sistema:
+    --   macOS/Linux (Zsh): Agrega a ~/.zshrc o ~/.zshenv:
+    --     export ANTHROPIC_API_KEY="tu-api-key-aqui"
+    --   Windows (PowerShell): Agrega a $PROFILE:
+    --     $env:ANTHROPIC_API_KEY = "tu-api-key-aqui"
+    --   Windows (Sistema): Variables de entorno del sistema
 
     -- Desactivar avante en ventanas del picker (similar a Codeium)
     vim.api.nvim_create_autocmd("FileType", {
