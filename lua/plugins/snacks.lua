@@ -8,6 +8,26 @@ return {
         quickfile = { enabled = true },
         statuscolumn = { enabled = true },
         words = { enabled = false },
+        scroll = {
+            enabled = true,
+            -- Animación principal de scroll
+            animate = {
+                duration = { step = 10, total = 200 }, -- 10ms por paso, 200ms total
+                easing = "linear", -- Tipo de easing: "linear", "sine", "quad", "cubic", etc.
+            },
+            -- Animación cuando se repite el scroll (scrolling continuo)
+            animate_repeat = {
+                delay = 100, -- ms antes de usar la animación de repetición
+                duration = { step = 5, total = 50 }, -- Más rápido para scroll continuo
+                easing = "linear",
+            },
+            -- Filtro para determinar en qué buffers aplicar scroll suave
+            filter = function(buf)
+                return vim.g.snacks_scroll ~= false
+                    and vim.b[buf].snacks_scroll ~= false
+                    and vim.bo[buf].buftype ~= "terminal"
+            end,
+        },
         picker = {
             enabled = true,
             ui_select = true, -- Use picker for vim.ui.select
