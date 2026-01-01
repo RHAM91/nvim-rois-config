@@ -21,6 +21,7 @@ return {
       keymaps = {
         ["<C-c>"] = "actions.close",
         ["g."] = "actions.toggle_hidden",  -- Toggle archivos ocultos con g.
+        ["<leader>oc"] = "actions.cd",     -- Cambiar directorio de trabajo (cwd) al directorio actual
       }
     })
 
