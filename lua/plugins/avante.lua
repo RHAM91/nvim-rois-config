@@ -1,6 +1,14 @@
 -- ~/.config/nvim/lua/plugins/avante.lua
 -- Avante.nvim: AI-powered code assistant para ask y edit (sin auto-suggestions)
 
+-- ========================================
+-- CONFIGURACIÓN DE PROVIDER
+-- ========================================
+-- Cambia este valor para elegir el provider:
+-- "claude" - Claude Haiku 4.5 (balanceado, bueno para código)
+-- "gemini" - Gemini 2.5 Flash (rápido, económico, excelente para código)
+local ACTIVE_PROVIDER = "gemini"
+
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
@@ -28,9 +36,9 @@ return {
     mode = "legacy",
 
     -- ========================================
-    -- PROVEEDOR: Claude (Anthropic)
+    -- PROVEEDOR ACTIVO
     -- ========================================
-    provider = "claude",
+    provider = ACTIVE_PROVIDER,
 
     providers = {
       claude = {
@@ -41,8 +49,18 @@ return {
           temperature = 0.75,
           max_tokens = 8192,
         },
-        -- API key configurado vía variable de entorno o directamente aquí
-        -- IMPORTANTE: Es mejor usar variable de entorno ANTHROPIC_API_KEY
+        -- API key configurado vía variable de entorno ANTHROPIC_API_KEY
+      },
+
+      gemini = {
+        -- El endpoint ya está configurado por defecto en avante.nvim
+        -- https://generativelanguage.googleapis.com/v1beta
+        model = "gemini-2.5-flash", -- Gemini 2.5 Flash (rápido, económico y excelente para código)
+        timeout = 30000,
+        temperature = 0.7,
+        max_tokens = 8192,
+        -- API key configurado vía variable de entorno GEMINI_API_KEY
+        -- Nota: Gemini 1.5 fue retirado el 29/abril/2025, usar 2.5 Flash
       },
     },
 
@@ -169,13 +187,18 @@ return {
   config = function(_, opts)
     require("avante").setup(opts)
 
-    -- El API key se obtiene automáticamente de la variable de entorno ANTHROPIC_API_KEY
-    -- Configúralo en tu sistema:
-    --   macOS/Linux (Zsh): Agrega a ~/.zshrc o ~/.zshenv:
-    --     export ANTHROPIC_API_KEY="tu-api-key-aqui"
-    --   Windows (PowerShell): Agrega a $PROFILE:
-    --     $env:ANTHROPIC_API_KEY = "tu-api-key-aqui"
-    --   Windows (Sistema): Variables de entorno del sistema
+    -- ========================================
+    -- CONFIGURACIÓN DE API KEYS
+    -- ========================================
+    -- Los API keys se obtienen automáticamente de las variables de entorno:
+    --
+    -- Para Claude:
+    --   export ANTHROPIC_API_KEY="tu-api-key-aqui"
+    --
+    -- Para Gemini:
+    --   export GEMINI_API_KEY="tu-api-key-aqui"
+    --
+    -- Agrega las variables a ~/.zshrc o ~/.zshenv en macOS/Linux
 
     -- Desactivar avante en ventanas del picker (similar a Codeium)
     vim.api.nvim_create_autocmd("FileType", {
