@@ -298,6 +298,23 @@ Alternative file explorer that allows editing directories like text files. Opene
 ### ToggleTerm
 Floating terminal with curved borders. Opens with `<C-t>`. Default size: 120x30. Exit terminal mode with `<Esc><Esc>` or use `<C-Shift-h/j/k/l>` to navigate to other windows while in terminal mode.
 
+### GitGraph.nvim
+Visualizador gráfico del historial de Git con ordenamiento topológico temporal.
+- **Vista gráfica** - Muestra el árbol de commits con ramas visuales en columnas consistentes
+- **Integración con Diffview** - Presiona Enter en un commit para ver el diff completo
+- **Selección de rango** - Usa modo visual para seleccionar múltiples commits y ver diferencias
+- **Información detallada** - Muestra hash, fecha, autor, rama y etiquetas
+- **Colores personalizados** - 5 colores diferentes para distinguir ramas visualmente
+- **Configuración** - `lua/plugins/gitgraph.lua`
+
+**Keybindings:**
+- `<leader>gh` - Abrir vista gráfica de Git (muestra hasta 5000 commits)
+- `Enter` - Ver diff del commit bajo el cursor (requiere diffview.nvim)
+- `Enter` (modo visual) - Ver diff entre commits seleccionados
+
+**Dependencias:**
+- `sindrets/diffview.nvim` - Opcional pero recomendado para ver diffs de commits
+
 ### Scope Highlighting (mini.indentscope)
 Visual indicator for the current code block/scope with a vertical line.
 - **Vertical line** - Shows `│` marking the current scope/block
