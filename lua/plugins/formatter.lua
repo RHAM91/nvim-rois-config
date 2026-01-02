@@ -52,11 +52,8 @@ return {
       },
     },
 
-    -- Formatear automáticamente al guardar
-    format_on_save = {
-      -- Timeout en milisegundos
-      timeout_ms = 500,
-      -- Usar LSP como fallback si no hay formateador configurado
+    -- Formatear automáticamente DESPUÉS de guardar (asíncrono, no bloquea la UI)
+    format_after_save = {
       lsp_fallback = true,
     },
 
