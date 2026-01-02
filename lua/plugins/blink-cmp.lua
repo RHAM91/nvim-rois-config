@@ -52,8 +52,8 @@ return {
       },
     },
     
-    signature = { 
-      enabled = true 
+    signature = {
+      enabled = false  -- Deshabilitado para evitar recuadros molestos
     },
   },
 }

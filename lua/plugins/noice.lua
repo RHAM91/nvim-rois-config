@@ -14,6 +14,10 @@ return {
                 ["vim.lsp.util.stylize_markdown"] = true,
                 ["cmp.entry.get_documentation"] = true, -- Requiere hrsh7th/nvim-cmp
             },
+            -- Deshabilitar signature help automático (ese recuadro molesto)
+            signature = {
+                enabled = false,
+            },
         },
         -- Presets para mejorar la experiencia
         presets = {
