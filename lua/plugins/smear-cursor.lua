@@ -14,7 +14,7 @@ return {
         -- -- Configuración de la dinámica de la estela
         -- stiffness = 0.65, -- Rigidez (0-1): más alto = respuesta más rápida
         -- trailing_stiffness = 0.54, -- Rigidez de la estela (0-1): más bajo = estela más larga
-        -- damping = 0.6, -- Amortiguación (0-1): controla cuánto rebota/oscila
+        damping = 0.6, -- Amortiguación (0-1): controla cuánto rebota/oscila
 
         -- -- Configuración para insert mode (cursor vertical)
         -- stiffness_insert_mode = 0.6,
