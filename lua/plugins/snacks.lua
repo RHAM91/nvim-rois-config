@@ -49,9 +49,9 @@ return {
 
                     -- Si hay sesión, mostrar "Restore Session", sino mostrar "Abrir Oil"
                     if has_session then
-                        table.insert(keys, { icon = " ", key = "r", desc = "Restore Session", action = function() require("persistence").load() end })
+                        table.insert(keys, { icon = "", key = "r", desc = "Restore Session", action = function() require("persistence").load() end })
                     else
-                        table.insert(keys, { icon = " ", key = "o", desc = "Abrir Oil", action = function()
+                        table.insert(keys, { icon = "", key = "o", desc = "Abrir Oil", action = function()
                             -- El dashboard se cierra automáticamente antes de ejecutar la acción
                             -- Usamos vim.schedule y noautocmd para evitar conflictos con los autocommands del dashboard
                             vim.schedule(function()
@@ -65,7 +65,7 @@ return {
                         end })
                     end
 
-                    table.insert(keys, { icon = " ", key = "q", desc = "Quit", action = ":qa" })
+                    table.insert(keys, { icon = "", key = "q", desc = "Quit", action = ":qa" })
 
                     return keys
                 end,
@@ -168,11 +168,11 @@ header = [[
             sections = {
                 { section = "header" },
                 { section = "keys", gap = 1, padding = 1 },
-                { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1, cwd = true, action = function() end },
+                { icon = "", title = "Recent Files", section = "recent_files", indent = 2, padding = 1, cwd = true, action = function() end },
                 {
                     section = "terminal",
                     cmd = "pwd",
-                    icon = " ",
+                    icon = "",
                     title = "Current Directory",
                     indent = 2,
                     padding = 1,
