@@ -1,6 +1,17 @@
 return {
     'lewis6991/satellite.nvim',
     event = 'VeryLazy',
+    config = function(_, opts)
+        -- Proteger contra errores E565 durante operaciones de buffer
+        local ok, satellite = pcall(require, 'satellite')
+        if not ok then return end
+
+        -- Envolver la configuración en vim.schedule para evitar conflictos
+        -- con restauración de sesiones y operaciones de buffer
+        vim.schedule(function()
+            satellite.setup(opts)
+        end)
+    end,
     opts = {
         current_only = false,
         winblend = 50,

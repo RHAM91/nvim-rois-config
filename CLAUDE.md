@@ -248,6 +248,27 @@ This configuration integrates three AI systems that work together:
 - `\\\\` - Add cursor at current position
 - Standard Vim commands work: `c`, `d`, `y`, `r`, `~`
 
+### API Client
+
+**atac.nvim** - REST API client integrado en Neovim
+- Cliente REST similar a Postman/Insomnia pero en la terminal
+- Permite hacer peticiones HTTP (GET, POST, PUT, DELETE, etc.) sin salir de Neovim
+- Gestión de colecciones de APIs y variables de entorno
+- Directorio de trabajo: `~/.local/share/atac`
+- Configuración en `lua/plugins/atac.lua`
+
+**Keybindings:**
+- `<leader>ta` - Toggle ATAC (abrir/cerrar)
+
+**Comandos:**
+- `:Atac` - Toggle ATAC interface
+- `:AtacOpen` - Comando alternativo para abrir ATAC
+
+**Notas importantes:**
+- Requiere ATAC ≥ 0.13.0 instalado en el sistema
+- Usa un directorio dedicado para evitar conflictos con archivos .json del proyecto
+- Integrado con toggleterm.nvim para la interfaz de terminal
+
 ### UI & Notifications
 
 **noice.nvim** - Modern UI for messages, cmdline and notifications
@@ -314,6 +335,16 @@ Visualizador gráfico del historial de Git con ordenamiento topológico temporal
 
 **Dependencias:**
 - `sindrets/diffview.nvim` - Opcional pero recomendado para ver diffs de commits
+
+### atac.nvim
+Cliente REST/API integrado en Neovim (similar a Postman/Insomnia).
+- **Directorio de trabajo** - `~/.local/share/atac` (fijo para evitar conflictos con archivos .json del proyecto)
+- **Keybinding** - `<leader>ta` para toggle
+- **Comandos** - `:Atac` o `:AtacOpen`
+- **Requisito** - ATAC ≥ 0.13.0 instalado en el sistema
+- **Nota importante** - Usa un directorio dedicado separado del proyecto para evitar el bug conocido de cierre inmediato cuando hay archivos .json en el directorio de trabajo
+- **Integración** - Usa toggleterm.nvim para la interfaz de terminal
+- **Configuración** - `lua/plugins/atac.lua`
 
 ### Scope Highlighting (mini.indentscope)
 Visual indicator for the current code block/scope with a vertical line.
