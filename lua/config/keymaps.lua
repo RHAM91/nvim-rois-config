@@ -11,7 +11,7 @@ vim.keymap.set('v', 'c', '"_c', { noremap = true, silent = true, desc = 'Borrar 
 
 -- También aplica para 'd' (delete) y 'x' si lo deseas
 vim.keymap.set('v', 'd', '"_d', { noremap = true, silent = true, desc = 'Delete sin copiar' })
-vim.keymap.set('v', 'x', '"_x', { noremap = true, silent = true, desc = 'Cut sin copiar' })
+--vim.keymap.set('v', 'x', '"_x', { noremap = true, silent = true, desc = 'Cut sin copiar' })
 
 -- Si quieres que paste en modo visual no copie lo reemplazado
 vim.keymap.set('v', 'p', '"_dP', { noremap = true, silent = true, desc = 'Paste sin copiar lo reemplazado' })
