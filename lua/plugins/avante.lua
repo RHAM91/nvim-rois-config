@@ -7,7 +7,7 @@
 -- Cambia este valor para elegir el provider:
 -- "claude" - Claude Haiku 4.5 (balanceado, bueno para código)
 -- "gemini" - Gemini 2.5 Flash (rápido, económico, excelente para código)
-local ACTIVE_PROVIDER = "gemini"
+local ACTIVE_PROVIDER = "claude"
 
 return {
   "yetone/avante.nvim",
