@@ -52,12 +52,94 @@ return {
     end,
   },
 
-  -- Comentarios inteligentes
+  -- nvim-ts-context-commentstring: Detección de contexto para archivos Vue/JSX/TSX
+  -- Detecta automáticamente si estás en template/script/style en archivos Vue
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    lazy = true, -- Solo se carga cuando Comment.nvim lo necesita
+  },
+
+  -- Comment.nvim: Plugin de comentarios con soporte para archivos multi-lenguaje
   {
     'numToStr/Comment.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
     config = function()
-      require('Comment').setup()
+      -- IMPORTANTE: Configurar ANTES de Comment.nvim
+      require('ts_context_commentstring').setup({
+        enable_autocmd = false, -- Comment.nvim maneja esto con pre_hook
+        -- No configurar 'languages' manualmente - dejar que use la detección automática de Treesitter
+      })
+
+      -- Configurar Comment.nvim con integración de ts-context-commentstring
+      require('Comment').setup({
+        -- CRÍTICO: pre_hook para que detecte el contexto en Vue/JSX/TSX
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+
+        -- Deshabilitar atajos por defecto para usar los personalizados
+        mappings = {
+          basic = false,    -- Deshabilitar gcc, gbc
+          extra = false,    -- Deshabilitar gco, gcO, gcA
+        },
+      })
+
+      -- Función auxiliar para comentar con detección de modo
+      local api = require('Comment.api')
+      local esc = vim.api.nvim_replace_termcodes('<ESC>', true, false, true)
+
+      -- Función para comentar línea actual o selección
+      local function comment_line()
+        -- En modo visual, primero salir del modo visual
+        local mode = vim.api.nvim_get_mode().mode
+        if mode == 'v' or mode == 'V' then
+          vim.api.nvim_feedkeys(esc, 'nx', false)
+          -- Comentar la selección visual
+          api.toggle.linewise(vim.fn.visualmode())
+        else
+          -- Comentar línea actual
+          api.toggle.linewise.current()
+        end
+      end
+
+      -- Función para comentar bloque
+      local function comment_block()
+        local mode = vim.api.nvim_get_mode().mode
+        if mode == 'v' or mode == 'V' then
+          vim.api.nvim_feedkeys(esc, 'nx', false)
+          -- Comentar como bloque la selección visual
+          api.toggle.blockwise(vim.fn.visualmode())
+        else
+          -- Comentar línea actual como bloque
+          api.toggle.blockwise.current()
+        end
+      end
+
+      -- ATAJOS PERSONALIZADOS
+      -- Modo Normal: cl para comentar línea
+      vim.keymap.set('n', 'cl', comment_line, {
+        desc = 'Comentar/descomentar línea',
+        silent = true,
+      })
+
+      -- Modo Visual: cl para comentar líneas seleccionadas
+      vim.keymap.set('v', 'cl', comment_line, {
+        desc = 'Comentar/descomentar selección',
+        silent = true,
+      })
+
+      -- Modo Normal: cb para comentar bloque
+      vim.keymap.set('n', 'cb', comment_block, {
+        desc = 'Comentar/descomentar bloque',
+        silent = true,
+      })
+
+      -- Modo Visual: cb para comentar bloque
+      vim.keymap.set('v', 'cb', comment_block, {
+        desc = 'Comentar/descomentar bloque',
+        silent = true,
+      })
     end,
   },
 

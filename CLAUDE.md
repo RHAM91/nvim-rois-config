@@ -28,10 +28,11 @@ Key plugin files:
 - `codeium.lua` - AI code suggestions (inline completions)
 - `avante.lua` - Avante.nvim AI assistant (ask & edit operations)
 - `claude-code.lua` - Claude Code integration
+- `extras.lua` - Additional plugins including nvim-ts-context-commentstring + Comment.nvim for Vue/JSX/TSX context-aware commenting
 - `formatter.lua` - conform.nvim with Prettier (4-space indentation)
 - `luasnip-config.lua` - Custom snippets for JS/TS/Vue
 - `toggleterm.lua` - Floating terminal configuration
-- `treesitter.lua` - Treesitter for syntax parsing (minimal configuration)
+- `treesitter.lua` - Treesitter for syntax parsing (highlight enabled for comment detection)
 - `indent-blankline.lua` - mini.indentscope for scope highlighting with vertical line
 
 ## Critical Architecture Notes
@@ -47,13 +48,15 @@ This configuration carefully manages conflicts between multiple completion and n
 
 4. **Codeium has custom Tab binding** - `<Tab>` accepts Codeium suggestions (codeium.lua:16-18)
 
-5. **LuaSnip navigation conflicts with Codeium** - Both want `<C-l>`. LuaSnip takes precedence when a snippet is active
+5. **Comments use `cl` and `cb`** - Simple two-letter commands that don't conflict with any existing bindings
 
-6. **ESC clears search highlight** - Remapped to `:noh` instead of default behavior (keymaps.lua:87)
+6. **LuaSnip navigation uses `<C-l>` in insert mode** - No conflicts with comment commands which use normal/visual mode
 
-7. **Claude Code uses `<leader>c` prefix** - Changed from default `<leader>a` to avoid conflicts. Uses `<leader>cl` (toggle), `<leader>ch` (chat), `<leader>cr` (refresh), `<leader>cs` (status)
+7. **ESC clears search highlight** - Remapped to `:noh` instead of default behavior (keymaps.lua:87)
 
-8. **Avante.nvim uses default `<leader>a` prefix** - Uses `<leader>aa` (ask), `<leader>ae` (edit), `<leader>ar` (refresh), `<leader>at` (toggle), etc. No conflicts with Claude Code or Codeium
+8. **Claude Code uses `<leader>c` prefix** - Changed from default `<leader>a` to avoid conflicts. Uses `<leader>cl` (toggle), `<leader>ch` (chat), `<leader>cr` (refresh), `<leader>cs` (status)
+
+9. **Avante.nvim uses default `<leader>a` prefix** - Uses `<leader>aa` (ask), `<leader>ae` (edit), `<leader>ar` (refresh), `<leader>at` (toggle), etc. No conflicts with Claude Code or Codeium
 
 ### Auto-reload Architecture
 Files automatically reload when changed externally using autocmds on:
@@ -136,6 +139,14 @@ After configuration, servers are enabled with `vim.lsp.enable('<server_name>')`.
 
 ### Emmet
 - `Ctrl+e` in insert mode - Expand Emmet abbreviation
+
+### Code Comments
+- `cl` - Toggle line comment (works in normal and visual mode)
+- `cb` - Toggle block comment (works in normal and visual mode)
+- **Context-aware** - Automatically detects language in multi-language files (Vue, JSX, TSX)
+  - In Vue `<template>`: uses `<!-- HTML comments -->`
+  - In Vue `<script>`: uses `// JavaScript comments`
+  - In Vue `<style>`: uses `/* CSS comments */`
 
 ## AI Integration Architecture
 
@@ -293,22 +304,45 @@ This configuration integrates three AI systems that work together:
 
 ### Treesitter Architecture
 
-**nvim-treesitter** - Minimal syntax parsing for hlchunk.nvim
-- **Highlighting disabled** - To avoid conflicts with existing syntax highlighting
+**nvim-treesitter** - Syntax parsing for context-aware features
+- **Highlighting enabled** - Required for ts-context-commentstring to detect Vue sections
 - **Indentation disabled** - Maintains current indentation behavior
 - **Auto-install enabled** - Parsers install automatically when opening files
 - **Languages supported** - Lua, Vim, JavaScript, TypeScript, Vue, HTML, CSS, JSON, Python, Markdown
-- **Performance safeguard** - Disabled for files larger than 100KB
-- **Primary purpose** - Provides accurate scope detection for hlchunk.nvim visual borders
+- **Primary purposes** - Provides scope detection for hlchunk.nvim and language context for comments
 - Configuration in `lua/plugins/treesitter.lua`
 
 **Important Notes:**
-- Treesitter is configured minimally to avoid conflicts with your existing setup
-- Only parsing functionality is used, not syntax highlighting or indentation
-- If you experience any issues, Treesitter features can be disabled individually
-- The highlight feature can be enabled by setting `highlight.enable = true` in treesitter.lua if desired
+- Highlighting is enabled specifically for comment detection in multi-language files (Vue, JSX, TSX)
+- The Vue parser is critical for detecting template/script/style sections
+- Parsers are installed via `:TSInstall` commands or automatically on file open
 
 ## Plugin Notes
+
+### Comment.nvim + nvim-ts-context-commentstring
+Sistema de comentarios inteligente con detección de contexto para archivos multi-lenguaje.
+
+**Características:**
+- **Detección automática de lenguaje** - Usa Treesitter para detectar el contexto actual
+- **Soporte para Vue SFC** - Detecta si estás en `<template>`, `<script>` o `<style>`
+- **Toggle inteligente** - El mismo atajo comenta/descomenta automáticamente
+- **Funciona con JSX/TSX** - También detecta contexto en archivos React
+
+**Atajos:**
+- `cl` - Comentar/descomentar línea (normal y visual)
+- `cb` - Comentar/descomentar bloque (normal y visual)
+
+**Tipos de comentarios por contexto:**
+- Vue `<template>`: `<!-- comentario HTML -->`
+- Vue `<script>`: `// comentario JavaScript`
+- Vue `<style>`: `/* comentario CSS */`
+- JavaScript/TypeScript: `// comentario`
+- CSS/SCSS: `/* comentario */`
+
+**Configuración:**
+- Comment.nvim: `lua/plugins/extras.lua:64-144`
+- Requiere Treesitter con highlighting habilitado
+- Requiere parser de Vue instalado: `:TSInstall vue`
 
 ### nvim-autopairs
 Configured with custom rules for HTML/Vue tag auto-indentation. When pressing Enter between tags, automatically creates properly indented structure.
