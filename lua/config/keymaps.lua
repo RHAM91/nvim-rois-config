@@ -58,11 +58,23 @@ vim.keymap.set('v', 'L', '$h', { noremap = true, silent = true, desc = 'Seleccio
 -- Ctrl+w l = ventana derecha
 -- Otros comandos útiles: Ctrl+w w (siguiente), Ctrl+w q (cerrar), Ctrl+w v (split vertical), Ctrl+w s (split horizontal)
 
+-- Navegación entre ventanas con leader (más rápido que Ctrl+w)
+vim.keymap.set('n', '<leader>wh', '<C-w>h', { noremap = true, silent = true, desc = 'Ventana izquierda' })
+vim.keymap.set('n', '<leader>wj', '<C-w>j', { noremap = true, silent = true, desc = 'Ventana abajo' })
+vim.keymap.set('n', '<leader>wk', '<C-w>k', { noremap = true, silent = true, desc = 'Ventana arriba' })
+vim.keymap.set('n', '<leader>wl', '<C-w>l', { noremap = true, silent = true, desc = 'Ventana derecha' })
+
 -- Para salir del modo terminal y navegar entre ventanas
 vim.keymap.set('t', '<C-w>h', '<C-\\><C-n><C-w>h', { noremap = true, silent = true, desc = 'Terminal: Ventana izquierda' })
 vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j', { noremap = true, silent = true, desc = 'Terminal: Ventana abajo' })
 vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k', { noremap = true, silent = true, desc = 'Terminal: Ventana arriba' })
 vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l', { noremap = true, silent = true, desc = 'Terminal: Ventana derecha' })
+
+-- También con leader desde el modo terminal
+vim.keymap.set('t', '<leader>wh', '<C-\\><C-n><C-w>h', { noremap = true, silent = true, desc = 'Terminal: Ventana izquierda' })
+vim.keymap.set('t', '<leader>wj', '<C-\\><C-n><C-w>j', { noremap = true, silent = true, desc = 'Terminal: Ventana abajo' })
+vim.keymap.set('t', '<leader>wk', '<C-\\><C-n><C-w>k', { noremap = true, silent = true, desc = 'Terminal: Ventana arriba' })
+vim.keymap.set('t', '<leader>wl', '<C-\\><C-n><C-w>l', { noremap = true, silent = true, desc = 'Terminal: Ventana derecha' })
 
 -- Redimensionar ventanas con flechas
 vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', { noremap = true, silent = true, desc = 'Reducir altura' })
