@@ -74,6 +74,43 @@ return {
         vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
       end
 
+      -- Configuración de diagnósticos con mensajes virtuales
+      vim.diagnostic.config({
+        virtual_text = {
+          enabled = true,
+          -- Prefijo antes del mensaje (puede ser un ícono)
+          prefix = '▶',
+          -- Espaciado entre el código y el mensaje virtual
+          spacing = 3,
+          -- Mostrar solo la fuente si hay conflicto entre múltiples LSPs
+          source = true,
+          -- Formatear el mensaje virtual
+          format = function(diagnostic)
+            return diagnostic.message
+          end,
+        },
+        -- Mostrar diagnósticos ordenados por severidad (el más importante primero)
+        severity_sort = true,
+        -- Actualizar diagnósticos en modo insert
+        update_in_insert = false,
+        -- Configuración de signos en la columna izquierda
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = 'E',
+            [vim.diagnostic.severity.WARN] = 'W',
+            [vim.diagnostic.severity.INFO] = 'I',
+            [vim.diagnostic.severity.HINT] = 'H',
+          },
+        },
+        -- Configuración de ventanas flotantes
+        float = {
+          border = 'rounded',
+          source = 'always',
+          header = '',
+          prefix = '',
+        },
+      })
+
       -- ===== VTSLS (TypeScript/JavaScript - REQUERIDO para Vue) =====
       local vue_language_server_path = vim.fn.stdpath('data') .. '/mason/packages/vue-language-server/node_modules/@vue/language-server'
 
