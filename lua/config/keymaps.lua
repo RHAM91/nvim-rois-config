@@ -51,17 +51,18 @@ vim.keymap.set('n', '<leader>l', '$', { noremap = true, silent = true, desc = 'F
 -- En modo visual: L (shift+l) selecciona hasta el final de la línea
 vim.keymap.set('v', 'L', '$h', { noremap = true, silent = true, desc = 'Seleccionar hasta final de línea' })
 
--- Moverse entre ventanas más fácil (Ctrl+Shift para evitar confusión con Codeium)
-vim.keymap.set('n', '<C-S-h>', '<C-w>h', { noremap = true, silent = true, desc = 'Ventana izquierda' })
-vim.keymap.set('n', '<C-S-j>', '<C-w>j', { noremap = true, silent = true, desc = 'Ventana abajo' })
-vim.keymap.set('n', '<C-S-k>', '<C-w>k', { noremap = true, silent = true, desc = 'Ventana arriba' })
-vim.keymap.set('n', '<C-S-l>', '<C-w>l', { noremap = true, silent = true, desc = 'Ventana derecha' })
+-- Moverse entre ventanas: Ctrl+w seguido de h/j/k/l (nativo de Neovim)
+-- Ctrl+w h = ventana izquierda
+-- Ctrl+w j = ventana abajo
+-- Ctrl+w k = ventana arriba
+-- Ctrl+w l = ventana derecha
+-- Otros comandos útiles: Ctrl+w w (siguiente), Ctrl+w q (cerrar), Ctrl+w v (split vertical), Ctrl+w s (split horizontal)
 
--- También funciona en modo terminal (para Claude Code)
-vim.keymap.set('t', '<C-S-h>', '<C-\\><C-n><C-w>h', { noremap = true, silent = true, desc = 'Terminal: Ventana izquierda' })
-vim.keymap.set('t', '<C-S-j>', '<C-\\><C-n><C-w>j', { noremap = true, silent = true, desc = 'Terminal: Ventana abajo' })
-vim.keymap.set('t', '<C-S-k>', '<C-\\><C-n><C-w>k', { noremap = true, silent = true, desc = 'Terminal: Ventana arriba' })
-vim.keymap.set('t', '<C-S-l>', '<C-\\><C-n><C-w>l', { noremap = true, silent = true, desc = 'Terminal: Ventana derecha' })
+-- Para salir del modo terminal y navegar entre ventanas
+vim.keymap.set('t', '<C-w>h', '<C-\\><C-n><C-w>h', { noremap = true, silent = true, desc = 'Terminal: Ventana izquierda' })
+vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j', { noremap = true, silent = true, desc = 'Terminal: Ventana abajo' })
+vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k', { noremap = true, silent = true, desc = 'Terminal: Ventana arriba' })
+vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l', { noremap = true, silent = true, desc = 'Terminal: Ventana derecha' })
 
 -- Redimensionar ventanas con flechas
 vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', { noremap = true, silent = true, desc = 'Reducir altura' })
