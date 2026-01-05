@@ -217,6 +217,17 @@ vim.keymap.set('n', '<leader>ts', function()
 end, { desc = 'Tema: Selector (Snacks)' })
 
 -- ========================================
+-- TOGGLE INLAY HINTS (SUGERENCIAS DE TIPO)
+-- ========================================
+
+-- Activar/desactivar inlay hints (inferencia de tipos)
+vim.keymap.set('n', '<leader>th', function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  local status = vim.lsp.inlay_hint.is_enabled() and "activadas" or "desactivadas"
+  vim.notify('Inlay hints ' .. status, vim.log.levels.INFO)
+end, { desc = 'Toggle: Inlay Hints (tipos inferidos)' })
+
+-- ========================================
 -- CLAUDE CODE: Asistente de IA
 -- ========================================
 

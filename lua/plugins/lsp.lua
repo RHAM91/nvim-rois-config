@@ -72,6 +72,11 @@ return {
         vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
         vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
+
+        -- Habilitar inlay hints (sugerencias de tipo inline)
+        if client.server_capabilities.inlayHintProvider then
+          vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        end
       end
 
       -- Configuración de diagnósticos con mensajes virtuales
@@ -137,6 +142,30 @@ return {
                   configNamespace = 'typescript',
                 },
               },
+            },
+          },
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = 'all', -- Nombres de parámetros
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayFunctionParameterTypeHints = true, -- Tipos de parámetros
+              includeInlayVariableTypeHints = true, -- Tipos de variables
+              includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true, -- Tipos de propiedades
+              includeInlayFunctionLikeReturnTypeHints = true, -- Tipos de retorno
+              includeInlayEnumMemberValueHints = true, -- Valores de enum
+            },
+          },
+          javascript = {
+            inlayHints = {
+              includeInlayParameterNameHints = 'all',
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
             },
           },
         },
