@@ -19,7 +19,15 @@ require("config.lazy")
 
 -- Aplicar tema por defecto después de cargar plugins
 vim.defer_fn(function()
-  -- Cambia esto al tema que prefieras por defecto:
-  -- 'catppuccin', 'kanagawa-wave', 'kanagawa-dragon', 'oh-lucy', 'oh-lucy-evening', 'tokyonight-night'
-  pcall(vim.cmd.colorscheme, 'kanagawa-wave')
+  local bajo_recurso = vim.g.activar_modo_bajo_recurso or false
+
+  if bajo_recurso then
+    -- Tema simple y ligero en modo bajo recurso (menos highlight groups, más eficiente)
+    pcall(vim.cmd.colorscheme, 'habamax')  -- Tema built-in de Neovim, muy eficiente
+  else
+    -- Tema completo en modo normal
+    -- Cambia esto al tema que prefieras por defecto:
+    -- 'catppuccin', 'kanagawa-wave', 'kanagawa-dragon', 'oh-lucy', 'oh-lucy-evening', 'tokyonight-night'
+    pcall(vim.cmd.colorscheme, 'kanagawa-wave')
+  end
 end, 0)
