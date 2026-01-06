@@ -10,7 +10,7 @@ Claude Code debe responder siempre en español al usuario, incluyendo explicacio
 
 ## Overview
 
-This is a Neovim configuration optimized for Vue.js, TypeScript, and JavaScript development with AI assistance integration (Codeium for inline completions, Avante.nvim for AI ask & edit operations, and Claude Code). The configuration uses lazy.nvim for plugin management and follows a modular structure.
+This is a Neovim configuration optimized for Vue.js, TypeScript, and JavaScript development with AI assistance integration (Codeium for inline completions and Claude Code). The configuration uses lazy.nvim for plugin management and follows a modular structure.
 
 ## Configuration Structure
 
@@ -26,7 +26,6 @@ Key plugin files:
 - `lsp.lua` - LSP configuration using Neovim 0.11+ `vim.lsp.config` API
 - `blink-cmp.lua` - Fast completion engine
 - `codeium.lua` - AI code suggestions (inline completions)
-- `avante.lua` - Avante.nvim AI assistant (ask & edit operations)
 - `claude-code.lua` - Claude Code integration
 - `extras.lua` - Additional plugins including nvim-ts-context-commentstring + Comment.nvim for Vue/JSX/TSX context-aware commenting
 - `formatter.lua` - conform.nvim with Prettier (4-space indentation)
@@ -54,9 +53,7 @@ This configuration carefully manages conflicts between multiple completion and n
 
 7. **ESC clears search highlight** - Remapped to `:noh` instead of default behavior (keymaps.lua:87)
 
-8. **Claude Code uses `<leader>c` prefix** - Changed from default `<leader>a` to avoid conflicts. Uses `<leader>cl` (toggle), `<leader>ch` (chat), `<leader>cr` (refresh), `<leader>cs` (status)
-
-9. **Avante.nvim uses default `<leader>a` prefix** - Uses `<leader>aa` (ask), `<leader>ae` (edit), `<leader>ar` (refresh), `<leader>at` (toggle), etc. No conflicts with Claude Code or Codeium
+8. **Claude Code uses `<leader>c` prefix** - Uses `<leader>cl` (toggle), `<leader>ch` (chat), `<leader>cr` (refresh), `<leader>cs` (status)
 
 ### Auto-reload Architecture
 Files automatically reload when changed externally using autocmds on:
@@ -150,7 +147,7 @@ After configuration, servers are enabled with `vim.lsp.enable('<server_name>')`.
 
 ## AI Integration Architecture
 
-This configuration integrates three AI systems that work together:
+This configuration integrates two AI systems that work together:
 
 ### blink.cmp (LSP Completion)
 - Fast completion engine with `preset='enter'` keymap
@@ -169,41 +166,6 @@ This configuration integrates three AI systems that work together:
   - `<C-;>` / `<C-,>` - Cycle suggestions
   - `<C-x>` - Clear suggestion
 - **Important**: `<C-Space>` triggers Codeium, not blink.cmp (codeium.lua:45-47)
-
-### Avante.nvim (AI Ask & Edit)
-- **AI-powered code assistant** specialized in ask and edit operations
-- **Mode**: Legacy (without automatic tool execution)
-- **Provider**: Claude Haiku 4.5 (fast and cost-effective)
-- **Auto-suggestions disabled** - Only used for explicit ask and edit commands
-- **Sidebar position**: Right side (30% width)
-- **No conflicts with Codeium** - Uses different keybindings
-
-**Core Keybindings:**
-- `<leader>aa` - Ask Avante (normal/visual mode)
-- `<leader>ae` - Edit with Avante (visual mode)
-- `<leader>at` - Toggle Avante sidebar
-- `<leader>af` - Focus Avante sidebar
-- `<leader>ah` - Show conversation history
-- `<leader>ar` - Refresh Avante
-
-**Sidebar Navigation** (dentro del sidebar de Avante):
-- `<CR>` (normal) / `<C-s>` (insert) - Submit query
-- `<Esc>` o `q` - Close sidebar
-- `@` - Add file to context
-- `d` - Remove file from context
-- `A` - Apply all suggestions
-- `a` - Apply suggestion at cursor
-
-**Conflict Resolution** (al aplicar cambios):
-- `co` - Choose current version
-- `ct` - Choose incoming version
-- `]x` / `[x` - Next/previous conflict
-
-**Architecture Notes:**
-- Works independently from Codeium (no keybinding conflicts)
-- API key configured in `avante.lua` or via `ANTHROPIC_API_KEY` environment variable
-- Automatically disabled in Snacks picker windows
-- Requires global statusline (`laststatus = 3`) for proper view collapsing
 
 ### Claude Code Integration
 - Positioned on the right side (30% width)
