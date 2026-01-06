@@ -43,7 +43,7 @@ return {
     providers = {
       claude = {
         endpoint = "https://api.anthropic.com",
-        model = "claude-3-5-haiku-20241022", -- Claude Haiku 4.5
+        model = "claude-3-5-haiku-20250122", -- Claude Haiku 3.5 (versión actualizada)
         timeout = 30000,
         extra_request_body = {
           temperature = 0.75,
