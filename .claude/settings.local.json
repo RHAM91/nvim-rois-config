@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(lua -e \"dofile\\(''c:/Users/rtorres/AppData/Local/nvim/lua/plugins/snacks.lua''\\)\")"
+    ]
+  }
+}

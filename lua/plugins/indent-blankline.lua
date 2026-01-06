@@ -1,5 +1,7 @@
 return {
 	"echasnovski/mini.indentscope",
+	-- Deshabilitar en modo bajo recurso (dibuja constantemente, consume recursos)
+	enabled = not (vim.g.activar_modo_bajo_recurso or false),
 	version = false,
 	event = { "BufReadPost", "BufNewFile" },
 	opts = {

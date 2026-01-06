@@ -39,7 +39,7 @@ vim.opt.linebreak = true         -- Romper líneas en palabras completas
 vim.opt.breakindent = true       -- Mantener indentación en líneas ajustadas
 vim.opt.showbreak = '↪ '         -- Mostrar símbolo al inicio de líneas ajustadas
 vim.opt.signcolumn = 'yes'
-vim.opt.cursorline = true
+-- cursorline se configura en la sección Performance más abajo
 --vim.opt.winbar = "%F %m"  -- Mostrar ruta completa del archivo
 
 -- Búsqueda
@@ -52,14 +52,25 @@ vim.opt.incsearch = true
 local bajo_recurso = vim.g.activar_modo_bajo_recurso or false
 
 if bajo_recurso then
+  -- Optimizaciones existentes
   vim.opt.updatetime = 1000        -- Más tiempo entre actualizaciones (menos uso de CPU)
   vim.opt.timeoutlen = 300         -- Más tiempo para mapeos (evita procesamiento innecesario)
   vim.opt.lazyredraw = true        -- No redibujar durante macros/scripts
-  vim.opt.synmaxcol = 200          -- Limitar syntax highlighting a 200 columnas (mejora rendimiento en líneas largas)
+  vim.opt.synmaxcol = 200          -- Limitar syntax highlighting a 200 columnas
   vim.opt.scrolloff = 3            -- Reducir scrolloff para menos cálculos
+
+  -- OPTIMIZACIONES AGRESIVAS (Nivel 1)
+  vim.opt.cursorline = false       -- Deshabilitar cursorline (ahorra redibujado constante)
+  vim.opt.relativenumber = false   -- Solo números absolutos (menos cálculos por línea)
+  vim.opt.foldmethod = 'manual'    -- Sin folding automático (ahorra procesamiento)
+  vim.opt.maxmempattern = 1000     -- Limitar memoria para pattern matching
+  vim.opt.redrawtime = 1500        -- Reducir tiempo máximo de redibujado (vs 2000ms default)
+  vim.opt.regexpengine = 1         -- Motor regex viejo pero más rápido en casos simples
 else
+  -- Configuración normal
   vim.opt.updatetime = 250
   vim.opt.timeoutlen = 200         -- Tiempo de espera para mapeos (reducido para respuesta más rápida)
+  vim.opt.cursorline = true        -- Cursorline habilitada en modo normal
 end
 
 -- Splits
