@@ -5,7 +5,7 @@
 -- CONFIGURACIÓN DE PROVIDER
 -- ========================================
 -- Cambia este valor para elegir el provider:
--- "claude" - Claude Haiku 4.5 (balanceado, bueno para código)
+-- "claude" - Claude Haiku 4.5 (el más rápido y económico)
 -- "gemini" - Gemini 2.5 Flash (rápido, económico, excelente para código)
 local ACTIVE_PROVIDER = "claude"
 
@@ -43,7 +43,7 @@ return {
     providers = {
       claude = {
         endpoint = "https://api.anthropic.com",
-        model = "claude-3-5-haiku-20250122", -- Claude Haiku 3.5 (versión actualizada)
+        model = "claude-haiku-4-5-20251001", -- Claude Haiku 4.5 (el más rápido y económico)
         timeout = 30000,
         extra_request_body = {
           temperature = 0.75,
