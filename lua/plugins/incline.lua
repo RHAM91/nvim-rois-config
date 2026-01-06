@@ -20,10 +20,11 @@ return {
     --   })
     -- end,
 	'b0o/incline.nvim',
+	-- Optimizar en modo bajo recurso (usa rendering más simple)
 	event = 'VeryLazy',
 	config = function()
 		local incline = require('incline')
-		local devicons = require('nvim-web-devicons')
+		local bajo_recurso = vim.g.activar_modo_bajo_recurso or false
 
 		incline.setup({
 			window = {
@@ -54,19 +55,17 @@ return {
 					filename = '[Sin nombre]'
 				end
 
-				-- Obtener el icono del archivo
-				local ft_icon, ft_color = devicons.get_icon_color(filename)
 				local modified = vim.bo[props.buf].modified
+				local result = { { ' ' } }
 
-				-- Construir la visualización
-				local result = {
-					{ ' ' },
-				}
-
-				-- Agregar icono si existe
-				if ft_icon then
-					table.insert(result, { ft_icon, guifg = ft_color })
-					table.insert(result, { ' ' })
+				-- En modo bajo recurso, omitir iconos para reducir procesamiento
+				if not bajo_recurso then
+					local devicons = require('nvim-web-devicons')
+					local ft_icon, ft_color = devicons.get_icon_color(filename)
+					if ft_icon then
+						table.insert(result, { ft_icon, guifg = ft_color })
+						table.insert(result, { ' ' })
+					end
 				end
 
 				-- Nombre del archivo

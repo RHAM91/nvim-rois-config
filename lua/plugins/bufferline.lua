@@ -4,6 +4,8 @@ return {
   dependencies = 'nvim-tree/nvim-web-devicons',
   event = 'VeryLazy',
   config = function()
+    local bajo_recurso = vim.g.activar_modo_bajo_recurso or false
+
     require("bufferline").setup({
       options = {
         -- Mostrar números de buffer para saltar rápido
@@ -18,17 +20,17 @@ return {
         left_mouse_command = "buffer %d",
         middle_mouse_command = nil,
 
-        -- Indicadores visuales
+        -- Indicadores visuales (simplificados en modo bajo recurso)
         indicator = {
-          icon = '▎', -- Barra vertical en buffer activo
+          icon = bajo_recurso and '|' or '▎', -- Barra simple en bajo recurso
           style = 'icon', -- 'icon' | 'underline' | 'none'
         },
 
-        buffer_close_icon = '',
+        buffer_close_icon = bajo_recurso and 'x' or '',
         modified_icon = '●',
-        close_icon = '',
-        left_trunc_marker = '',
-        right_trunc_marker = '',
+        close_icon = bajo_recurso and 'X' or '',
+        left_trunc_marker = '<',
+        right_trunc_marker = '>',
 
         -- Longitud máxima del nombre
         max_name_length = 18,
@@ -36,8 +38,8 @@ return {
         truncate_names = true,
         tab_size = 18,
 
-        -- Diagnósticos (errores/warnings del LSP)
-        diagnostics = "nvim_lsp",
+        -- Diagnósticos (deshabilitado en modo bajo recurso para ahorrar procesamiento)
+        diagnostics = bajo_recurso and false or "nvim_lsp",
         diagnostics_update_in_insert = false,
         diagnostics_indicator = function(count, level, diagnostics_dict, context)
           local icon = level:match("error") and " " or " "

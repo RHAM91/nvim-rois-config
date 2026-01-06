@@ -3,6 +3,8 @@
 
 return {
   'isakbm/gitgraph.nvim',
+  -- Lazy loading: solo cargar cuando se use
+  cmd = { 'GitGraph' },
   dependencies = { 'sindrets/diffview.nvim' }, -- Opcional: para ver diffs de commits
   opts = {
     -- Símbolos para representar el gráfico de Git

@@ -51,6 +51,8 @@ return {
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       
+      local bajo_recurso = vim.g.activar_modo_bajo_recurso or false
+
       local on_attach = function(client, bufnr)
         local opts = { buffer = bufnr, noremap = true, silent = true }
 
@@ -73,8 +75,8 @@ return {
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
         vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
 
-        -- Habilitar inlay hints (sugerencias de tipo inline)
-        if client.server_capabilities.inlayHintProvider then
+        -- Deshabilitar inlay hints en modo bajo recurso (consumen procesamiento)
+        if client.server_capabilities.inlayHintProvider and not bajo_recurso then
           vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         end
       end
@@ -82,7 +84,8 @@ return {
       -- Configuración de diagnósticos con mensajes virtuales
       vim.diagnostic.config({
         virtual_text = {
-          enabled = true,
+          -- Deshabilitar virtual text en modo bajo recurso (reduce procesamiento de renderizado)
+          enabled = not bajo_recurso,
           -- Prefijo antes del mensaje (puede ser un ícono)
           prefix = '▶',
           -- Espaciado entre el código y el mensaje virtual
@@ -96,8 +99,8 @@ return {
         },
         -- Mostrar diagnósticos ordenados por severidad (el más importante primero)
         severity_sort = true,
-        -- Actualizar diagnósticos en modo insert
-        update_in_insert = false,
+        -- Actualizar diagnósticos en modo insert (deshabilitado en bajo recurso)
+        update_in_insert = bajo_recurso and false or false,
         -- Configuración de signos en la columna izquierda
         signs = {
           text = {

@@ -1,3 +1,10 @@
+-- ========================================
+-- MODO DE BAJO RECURSO
+-- ========================================
+-- Cambia a true si tu máquina tiene pocos recursos (≤8GB RAM, CPU antigua)
+-- Esto optimizará Neovim reduciendo animaciones, parsers y funciones de UI pesadas
+vim.g.activar_modo_bajo_recurso = true
+
 -- Configurar PowerShell como shell en Windows
 if vim.fn.has('win32') == 1 then
   vim.o.shell = 'pwsh.exe -NoLogo'

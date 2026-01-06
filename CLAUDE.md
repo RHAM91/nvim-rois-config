@@ -8,6 +8,78 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Claude Code debe responder siempre en español al usuario, incluyendo explicaciones, comentarios, mensajes de error, y cualquier otra comunicación. Los comentarios en el código también deben estar en español cuando sea apropiado.
 
+## Modo de Bajo Recurso
+
+Esta configuración incluye optimizaciones para máquinas con recursos limitados (≤8GB RAM, CPU antigua como Core i7 3ra generación).
+
+### Activar Modo de Bajo Recurso
+
+En `init.lua:6`, cambiar:
+```lua
+vim.g.activar_modo_bajo_recurso = false  -- Cambiar a true para activar
+```
+
+### Optimizaciones Implementadas
+
+Cuando `activar_modo_bajo_recurso = true`:
+
+1. **Options (options.lua)**
+   - `updatetime`: 1000ms (vs 250ms) - Menos actualizaciones frecuentes
+   - `timeoutlen`: 300ms (vs 200ms) - Más tiempo para mapeos
+   - `lazyredraw`: true - No redibujar durante macros
+   - `synmaxcol`: 200 - Limitar syntax highlighting en líneas largas
+   - `scrolloff`: 3 (vs 8) - Menos cálculos de scroll
+
+2. **Plugins de UI Deshabilitados**
+   - smear-cursor.nvim - Animaciones de cursor (consumo GPU/CPU)
+   - noice.nvim - UI avanzada de mensajes
+   - satellite.nvim - Minimap scrollbar
+
+3. **Plugins de UI Optimizados**
+   - bufferline.nvim - Iconos ASCII simples, diagnósticos deshabilitados
+   - incline.nvim - Sin iconos de archivo (nvim-web-devicons)
+
+4. **Treesitter (treesitter.lua)**
+   - Parsers limitados: solo lua, vim, javascript, typescript, vue
+   - Highlighting solo en archivos Vue (necesario para comentarios)
+   - Parsers completos en modo normal: +html, css, json, python, markdown
+
+5. **LSP (lsp.lua)**
+   - Inlay hints deshabilitados (menos procesamiento)
+   - Virtual text deshabilitado (reduce renderizado)
+   - update_in_insert: false
+
+6. **Completion (blink-cmp.lua)**
+   - Sources limitadas: solo lsp y path (sin snippets ni buffer)
+   - Treesitter en completion deshabilitado
+   - auto_show_delay: 500ms (vs 200ms)
+
+7. **Git (extras.lua, gitgraph.lua)**
+   - gitsigns: símbolos ASCII simples (+, ~, ?), update_debounce 500ms
+   - gitgraph: lazy loading con cmd (solo carga al usar)
+
+### Impacto en Funcionalidad
+
+**Funcionalidad Conservada:**
+- LSP completo para Vue/JS/TS (vtsls, vue_ls, html, cssls, emmet)
+- Completion funcional (LSP + path)
+- Git signs y navegación
+- Todos los keybindings
+- Comentarios contextuales en Vue
+- Formateo con Prettier
+- Claude Code y Codeium
+
+**Funcionalidad Reducida:**
+- Sin animaciones de cursor
+- Sin mensajes UI elegantes (noice)
+- Sin minimap scrollbar
+- Sin snippets en completion
+- Sin inlay hints de TypeScript
+- Sin virtual text de diagnósticos (usar `<leader>d` para ver)
+- Iconos simplificados
+
+**Recomendación:** Activar modo bajo recurso si notas lag al escribir, cambiar buffers o navegar archivos.
+
 ## Overview
 
 This is a Neovim configuration optimized for Vue.js, TypeScript, and JavaScript development with AI assistance integration (Codeium for inline completions and Claude Code). The configuration uses lazy.nvim for plugin management and follows a modular structure.

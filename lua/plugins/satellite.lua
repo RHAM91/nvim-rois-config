@@ -1,5 +1,7 @@
 return {
     'lewis6991/satellite.nvim',
+    -- Deshabilitar en modo bajo recurso (minimap consume recursos)
+    enabled = not (vim.g.activar_modo_bajo_recurso or false),
     event = 'VeryLazy',
     config = function(_, opts)
         -- Proteger contra errores E565 durante operaciones de buffer

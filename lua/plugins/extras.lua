@@ -172,14 +172,17 @@ return {
     'lewis6991/gitsigns.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
     config = function()
+      local bajo_recurso = vim.g.activar_modo_bajo_recurso or false
+
       require('gitsigns').setup({
         signs = {
-          add          = { text = '█' },  -- Bloque completo (más grueso)
-          change       = { text = '█' },  -- Bloque completo (más grueso)
+          -- Símbolos más simples en modo bajo recurso
+          add          = { text = bajo_recurso and '+' or '█' },
+          change       = { text = bajo_recurso and '~' or '█' },
           delete       = { text = '_' },
           topdelete    = { text = '‾' },
           changedelete = { text = '~' },
-          untracked    = { text = '┆' },
+          untracked    = { text = bajo_recurso and '?' or '┆' },
         },
         -- Personalizar colores de Git Signs
         -- Después de la configuración, establecer colores personalizados
@@ -187,8 +190,10 @@ return {
         current_line_blame_opts = {
           virt_text = true,
           virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-          delay = 1000,
+          delay = bajo_recurso and 2000 or 1000, -- Mayor delay en bajo recurso
         },
+        -- Reducir actualizaciones en modo bajo recurso
+        update_debounce = bajo_recurso and 500 or 100,
         on_attach = function(bufnr)
           local gs = package.loaded.gitsigns
 

@@ -15,7 +15,11 @@ vim.g.maplocalleader = ' '
 -- Números de línea
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.scrolloff = 8         -- Mantener 8 líneas de distancia
+
+-- Scrolloff se configura dinámicamente en la sección Performance más abajo
+if not (vim.g.activar_modo_bajo_recurso or false) then
+  vim.opt.scrolloff = 8         -- Mantener 8 líneas de distancia (solo en modo normal)
+end
 
 -- Mouse
 vim.opt.mouse = 'a'
@@ -45,8 +49,18 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 -- Performance
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 200  -- Tiempo de espera para mapeos (reducido para respuesta más rápida)
+local bajo_recurso = vim.g.activar_modo_bajo_recurso or false
+
+if bajo_recurso then
+  vim.opt.updatetime = 1000        -- Más tiempo entre actualizaciones (menos uso de CPU)
+  vim.opt.timeoutlen = 300         -- Más tiempo para mapeos (evita procesamiento innecesario)
+  vim.opt.lazyredraw = true        -- No redibujar durante macros/scripts
+  vim.opt.synmaxcol = 200          -- Limitar syntax highlighting a 200 columnas (mejora rendimiento en líneas largas)
+  vim.opt.scrolloff = 3            -- Reducir scrolloff para menos cálculos
+else
+  vim.opt.updatetime = 250
+  vim.opt.timeoutlen = 200         -- Tiempo de espera para mapeos (reducido para respuesta más rápida)
+end
 
 -- Splits
 vim.opt.splitright = true

@@ -1,5 +1,7 @@
 return {
     "sphamba/smear-cursor.nvim",
+    -- Deshabilitar en modo bajo recurso (animaciones consumen CPU/GPU)
+    enabled = not (vim.g.activar_modo_bajo_recurso or false),
     event = "VeryLazy",
     opts = {
         -- -- Configuración de estela/smear del cursor

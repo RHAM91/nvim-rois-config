@@ -1,5 +1,7 @@
 return {
     "folke/noice.nvim",
+    -- Deshabilitar en modo bajo recurso (UI avanzada consume recursos)
+    enabled = not (vim.g.activar_modo_bajo_recurso or false),
     event = "VeryLazy",
     dependencies = {
         "MunifTanjim/nui.nvim", -- Requerido para UI
