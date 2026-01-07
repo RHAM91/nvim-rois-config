@@ -139,8 +139,8 @@ return {
       }),
     })
 
-    -- Atajos para navegar entre placeholders del snippet
-    -- Usar Tab/Shift+Tab para navegar (configurado en blink-cmp.lua)
-    -- Ctrl+h/j/k/l reservados para navegación de tmux
+    -- Navegación entre placeholders del snippet con Tab/Shift+Tab
+    -- (configurado en blink-cmp.lua)
+    -- Ctrl+Shift+h/j/k/l reservados para navegación entre splits de Neovim
   end,
 }
