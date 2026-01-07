@@ -30,31 +30,39 @@ Cuando `activar_modo_bajo_recurso = true`:
    - `synmaxcol`: 200 - Limitar syntax highlighting en líneas largas
    - `scrolloff`: 3 (vs 8) - Menos cálculos de scroll
 
-2. **Plugins de UI Deshabilitados**
+2. **Tema (init.lua)**
+   - Modo normal: kanagawa-wave (tema completo con muchos highlight groups)
+   - Modo bajo recurso: habamax (tema built-in, muy eficiente)
+   - El usuario puede cambiar manualmente usando los keybindings (`<leader>tk`, etc.)
+
+3. **Plugins de UI Deshabilitados**
    - smear-cursor.nvim - Animaciones de cursor (consumo GPU/CPU)
    - noice.nvim - UI avanzada de mensajes
    - satellite.nvim - Minimap scrollbar
+   - mini.indentscope - Scope highlighting (dibuja constantemente)
 
-3. **Plugins de UI Optimizados**
+4. **Plugins de UI Optimizados**
    - bufferline.nvim - Iconos ASCII simples, diagnósticos deshabilitados
    - incline.nvim - Sin iconos de archivo (nvim-web-devicons)
+   - lualine.nvim - Sin iconos, sin separadores, refresh 2s (vs 1s)
+   - snacks.nvim - Sin scroll suave, header simplificado en dashboard
 
-4. **Treesitter (treesitter.lua)**
+5. **Treesitter (treesitter.lua)**
    - Parsers limitados: solo lua, vim, javascript, typescript, vue
    - Highlighting solo en archivos Vue (necesario para comentarios)
    - Parsers completos en modo normal: +html, css, json, python, markdown
 
-5. **LSP (lsp.lua)**
+6. **LSP (lsp.lua)**
    - Inlay hints deshabilitados (menos procesamiento)
    - Virtual text deshabilitado (reduce renderizado)
    - update_in_insert: false
 
-6. **Completion (blink-cmp.lua)**
+7. **Completion (blink-cmp.lua)**
    - Sources limitadas: solo lsp y path (sin snippets ni buffer)
    - Treesitter en completion deshabilitado
    - auto_show_delay: 500ms (vs 200ms)
 
-7. **Git (extras.lua, gitgraph.lua)**
+8. **Git (extras.lua, gitgraph.lua)**
    - gitsigns: símbolos ASCII simples (+, ~, ?), update_debounce 500ms
    - gitgraph: lazy loading con cmd (solo carga al usar)
 
@@ -70,13 +78,17 @@ Cuando `activar_modo_bajo_recurso = true`:
 - Claude Code y Codeium
 
 **Funcionalidad Reducida:**
-- Sin animaciones de cursor
+- Tema simple (habamax en lugar de kanagawa-wave)
+- Sin animaciones de cursor (smear-cursor)
 - Sin mensajes UI elegantes (noice)
-- Sin minimap scrollbar
+- Sin minimap scrollbar (satellite)
+- Sin scope highlighting (mini.indentscope)
 - Sin snippets en completion
 - Sin inlay hints de TypeScript
 - Sin virtual text de diagnósticos (usar `<leader>d` para ver)
-- Iconos simplificados
+- Iconos simplificados (ASCII en lugar de Unicode/Nerd Fonts)
+- Statusline minimalista (lualine sin iconos)
+- Sin scroll suave (snacks.nvim)
 
 **Recomendación:** Activar modo bajo recurso si notas lag al escribir, cambiar buffers o navegar archivos.
 
