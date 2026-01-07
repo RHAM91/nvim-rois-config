@@ -17,16 +17,6 @@ return {
       return vim.fn["codeium#Accept"]()
     end, { expr = true, silent = true, desc = "Codeium: Accept suggestion" })
 
-    -- Aceptar solo la siguiente palabra
-    vim.keymap.set("i", "<C-k>", function()
-      return vim.fn["codeium#AcceptNextWord"]()
-    end, { expr = true, silent = true, desc = "Codeium: Accept next word" })
-
-    -- Aceptar solo la siguiente línea
-    vim.keymap.set("i", "<C-l>", function()
-      return vim.fn["codeium#AcceptNextLine"]()
-    end, { expr = true, silent = true, desc = "Codeium: Accept next line" })
-
     -- Navegar entre sugerencias
     vim.keymap.set("i", "<C-;>", function()
       return vim.fn["codeium#CycleCompletions"](1)
