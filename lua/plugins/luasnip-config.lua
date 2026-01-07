@@ -140,16 +140,7 @@ return {
     })
 
     -- Atajos para navegar entre placeholders del snippet
-    vim.keymap.set({"i", "s"}, "<C-l>", function()
-      if ls.jumpable(1) then
-        ls.jump(1)
-      end
-    end, { desc = "Snippet: Saltar al siguiente campo" })
-
-    vim.keymap.set({"i", "s"}, "<C-h>", function()
-      if ls.jumpable(-1) then
-        ls.jump(-1)
-      end
-    end, { desc = "Snippet: Saltar al campo anterior" })
+    -- Usar Tab/Shift+Tab para navegar (configurado en blink-cmp.lua)
+    -- Ctrl+h/j/k/l reservados para navegación de tmux
   end,
 }
