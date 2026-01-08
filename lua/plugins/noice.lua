@@ -1,5 +1,13 @@
+-- ============================================================================
+-- CONFIGURACIÓN DE RENDIMIENTO
+-- ============================================================================
+-- true  = Modo optimizado (mejor rendimiento, menos animaciones)
+-- false = Modo completo (más visual, animaciones fluidas)
+local PERFORMANCE_MODE = true
+
 return {
     "folke/noice.nvim",
+    enabled = true,
     event = "VeryLazy",
     dependencies = {
         "MunifTanjim/nui.nvim", -- Requerido para UI
@@ -27,15 +35,61 @@ return {
             inc_rename = false, -- Habilita un diálogo de input para inc-rename.nvim
             lsp_doc_border = false, -- Añadir border a documentación de hover y signature help
         },
-        -- Rutas de mensajes (puedes personalizar)
-        routes = {
+        -- Rutas de mensajes (filtros según modo de rendimiento)
+        routes = PERFORMANCE_MODE and {
+            -- Modo optimizado: filtrar más mensajes innecesarios
             {
                 filter = {
                     event = "msg_show",
                     kind = "",
                     find = "written",
                 },
-                opts = { skip = true }, -- Ocultar mensajes de "file written"
+                opts = { skip = true }, -- Ocultar "file written"
+            },
+            {
+                filter = {
+                    event = "msg_show",
+                    find = "search hit BOTTOM",
+                },
+                opts = { skip = true }, -- Ocultar mensajes de búsqueda
+            },
+            {
+                filter = {
+                    event = "msg_show",
+                    find = "search hit TOP",
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = "msg_show",
+                    find = "%d+ lines yanked",
+                },
+                opts = { skip = true }, -- Ocultar mensajes de yank
+            },
+            {
+                filter = {
+                    event = "msg_show",
+                    find = "%d+ fewer lines",
+                },
+                opts = { skip = true }, -- Ocultar mensajes de delete
+            },
+            {
+                filter = {
+                    event = "msg_show",
+                    find = "%d+ more lines",
+                },
+                opts = { skip = true },
+            },
+        } or {
+            -- Modo completo: solo filtrar mensajes básicos
+            {
+                filter = {
+                    event = "msg_show",
+                    kind = "",
+                    find = "written",
+                },
+                opts = { skip = true },
             },
         },
         -- Configuración de vistas
@@ -73,13 +127,13 @@ return {
     config = function(_, opts)
         require("noice").setup(opts)
 
-        -- Configurar nvim-notify si está disponible
+        -- Configurar nvim-notify si está disponible (parametrizado por PERFORMANCE_MODE)
         local notify_ok, notify = pcall(require, "notify")
         if notify_ok then
             vim.notify = notify
             notify.setup({
                 background_colour = "#000000",
-                fps = 60,
+                fps = PERFORMANCE_MODE and 24 or 60, -- Optimizado: 24fps | Completo: 60fps
                 icons = {
                     DEBUG = "",
                     ERROR = "",
@@ -89,9 +143,9 @@ return {
                 },
                 level = 2,
                 minimum_width = 50,
-                render = "default", -- Opciones: default, minimal, simple, compact
-                stages = "fade_in_slide_out", -- Opciones: fade_in_slide_out, fade, slide, static
-                timeout = 3000,
+                render = PERFORMANCE_MODE and "compact" or "default", -- Optimizado: compact | Completo: default
+                stages = PERFORMANCE_MODE and "static" or "fade_in_slide_out", -- Optimizado: sin animación | Completo: con animación
+                timeout = PERFORMANCE_MODE and 1500 or 3000, -- Optimizado: 1.5s | Completo: 3s
                 top_down = true,
             })
         end
