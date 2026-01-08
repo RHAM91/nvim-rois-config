@@ -1,11 +1,12 @@
 return {
     "sphamba/smear-cursor.nvim",
+    enabled = true,  -- Desactivado temporalmente para mejorar rendimiento en WSL (causa lag al escribir)
     event = "VeryLazy",
     opts = {
         -- -- Configuración de estela/smear del cursor
         -- smear_between_buffers = true, -- Estela al cambiar entre buffers
         -- smear_between_neighbor_lines = true, -- Estela entre líneas vecinas
-        -- scroll_buffer_space = true, -- Permitir scroll con estela
+        scroll_buffer_space = false, -- Permitir scroll con estela
         -- legacy_computing_symbols_support = false, -- Cambiar a true si usas fuentes con símbolos Unicode
 
         -- -- Estela en modo inserción

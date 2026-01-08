@@ -47,6 +47,7 @@ vim.opt.incsearch = true
 -- Performance
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 200  -- Tiempo de espera para mapeos (reducido para respuesta más rápida)
+vim.opt.ttimeoutlen = 10  -- Tiempo de espera para secuencias de teclas (ESC, flechas, etc) - CRÍTICO para WSL+tmux
 
 -- Splits
 vim.opt.splitright = true
@@ -61,7 +62,8 @@ vim.opt.undofile = true
 vim.opt.autoread = true
 
 -- Detectar cambios externos automáticamente al volver a Neovim
-vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+-- Optimizado: solo FocusGained y BufEnter (CursorHold/CursorHoldI pueden causar lag en WSL)
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   pattern = '*',
   callback = function()
     if vim.fn.mode() ~= 'c' then

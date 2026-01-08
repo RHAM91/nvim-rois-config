@@ -26,7 +26,8 @@ return {
 			ts.install(parsers)
 		end
 
-		-- Habilitar highlighting para detección de contexto en comentarios
+		-- OPTIMIZACIÓN: No iniciar Treesitter automáticamente en cada buffer
+		-- Se inicia lazy cuando sea necesario (mejora rendimiento en WSL)
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = { "vue", "javascript", "typescript", "html", "css", "lua" },
 			callback = function()
