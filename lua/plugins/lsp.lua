@@ -61,7 +61,8 @@ return {
 
         -- Hover: Cambiado de K a gh para evitar conflicto con Shift+k
         vim.keymap.set('n', 'gh', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        -- Signature help: Cambiado de <C-k> a <leader>k para evitar conflicto con vim-tmux-navigator
+        vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, opts)
 
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)

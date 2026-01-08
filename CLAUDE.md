@@ -39,21 +39,23 @@ Key plugin files:
 ### Keybinding Conflict Resolution Strategy
 This configuration carefully manages conflicts between multiple completion and navigation systems:
 
-1. **Window navigation uses `Ctrl+Shift` instead of `Ctrl`** - Prevents conflicts with Codeium (`<C-k>`, `<C-l>`) and blink.cmp (`<C-n>`, `<C-p>`)
+1. **Window/pane navigation uses `Ctrl+h/j/k/l` via vim-tmux-navigator** - Seamlessly navigate between Neovim windows AND tmux panes with the same keys. Alternative navigation: `<leader>w` + `h/j/k/l` or native `Ctrl+w` + `h/j/k/l`
 
 2. **Hover documentation remapped from `K` to `gh`** - The default LSP hover key `K` conflicts with the remapped paragraph jump `Shift+k`
 
-3. **blink.cmp uses `<C-g>` instead of `<C-y>`** - Custom accept key to avoid conflicts
+3. **Signature help remapped from `<C-k>` to `<leader>k`** - LSP signature help moved to avoid conflict with vim-tmux-navigator upward navigation
 
-4. **Codeium has custom Tab binding** - `<Tab>` accepts Codeium suggestions (codeium.lua:16-18)
+4. **blink.cmp uses `<C-g>` instead of `<C-y>`** - Custom accept key to avoid conflicts
 
-5. **Comments use `cl` and `cb`** - Simple two-letter commands that don't conflict with any existing bindings
+5. **Codeium has custom Tab binding** - `<Tab>` accepts Codeium suggestions (codeium.lua:16-18)
 
-6. **LuaSnip navigation uses `<C-l>` in insert mode** - No conflicts with comment commands which use normal/visual mode
+6. **Comments use `cl` and `cb`** - Simple two-letter commands that don't conflict with any existing bindings
 
-7. **ESC clears search highlight** - Remapped to `:noh` instead of default behavior (keymaps.lua:87)
+7. **LuaSnip navigation uses `<C-l>` in insert mode** - No conflicts with comment commands which use normal/visual mode
 
-8. **Claude Code uses `<leader>c` prefix** - Uses `<leader>cl` (toggle), `<leader>ch` (chat), `<leader>cr` (refresh), `<leader>cs` (status)
+8. **ESC clears search highlight** - Remapped to `:noh` instead of default behavior (keymaps.lua:87)
+
+9. **Claude Code uses `<leader>c` prefix** - Uses `<leader>cl` (toggle), `<leader>ch` (chat), `<leader>cr` (refresh), `<leader>cs` (status)
 
 ### Auto-reload Architecture
 Files automatically reload when changed externally using autocmds on:
@@ -109,11 +111,14 @@ After configuration, servers are enabled with `vim.lsp.enable('<server_name>')`.
 ### Buffer & Window Navigation
 - `Shift+h` / `Shift+l` - Navigate between buffers (previous/next)
 - `Shift+j` / `Shift+k` - Jump between paragraphs (remapped from `{` and `}`)
-- `Ctrl+Shift+h/j/k/l` - Navigate between windows (works in normal AND terminal mode)
+- `Ctrl+h/j/k/l` - Navigate between Neovim windows AND tmux panes seamlessly (via vim-tmux-navigator)
+- `<leader>w` + `h/j/k/l` - Alternative window navigation (doesn't work across tmux panes)
+- `Ctrl+w` + `h/j/k/l` - Native Neovim window navigation (doesn't work across tmux panes)
 - Arrow keys with `Ctrl` - Resize windows
 
 ### LSP Navigation
 - `gh` - Show hover documentation (remapped from default `K` to avoid conflict with paragraph navigation)
+- `<leader>k` - Show signature help (remapped from `<C-k>` to avoid conflict with vim-tmux-navigator)
 - `gd` - Go to definition
 - `gD` - Go to declaration
 - `gr` - Show references
@@ -306,6 +311,14 @@ Sistema de comentarios inteligente con detección de contexto para archivos mult
 - Requiere Treesitter con highlighting habilitado
 - Requiere parser de Vue instalado: `:TSInstall vue`
 
+### vim-tmux-navigator
+Integración perfecta entre Neovim y tmux para navegación unificada.
+- **Navegación unificada** - Usa `Ctrl+h/j/k/l` para navegar entre ventanas de Neovim Y paneles de tmux sin pensar
+- **Detección inteligente** - Automáticamente detecta si estás en el borde de Neovim y pasa el control a tmux
+- **Sin configuración manual** - Funciona out-of-the-box, no necesitas pensar en si estás en Vim o tmux
+- **Configuración** - `lua/plugins/vim-tmux-navigator.lua`
+- **Requisito tmux** - El plugin `christoomey/vim-tmux-navigator` debe estar instalado en tmux (línea 14 de `.tmux.conf`)
+
 ### nvim-autopairs
 Configured with custom rules for HTML/Vue tag auto-indentation. When pressing Enter between tags, automatically creates properly indented structure.
 
@@ -313,7 +326,7 @@ Configured with custom rules for HTML/Vue tag auto-indentation. When pressing En
 Alternative file explorer that allows editing directories like text files. Opened with `-` key. Configured to use trash for deletions.
 
 ### ToggleTerm
-Floating terminal with curved borders. Opens with `<C-t>`. Default size: 120x30. Exit terminal mode with `<Esc><Esc>` or use `<C-Shift-h/j/k/l>` to navigate to other windows while in terminal mode.
+Floating terminal with curved borders. Opens with `<C-t>`. Default size: 120x30. Exit terminal mode with `<Esc><Esc>` or use `Ctrl+h/j/k/l` (via vim-tmux-navigator) o `<leader>w` + `h/j/k/l` to navigate to other windows while in terminal mode.
 
 ### GitGraph.nvim
 Visualizador gráfico del historial de Git con ordenamiento topológico temporal.
