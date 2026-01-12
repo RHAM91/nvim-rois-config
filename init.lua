@@ -6,6 +6,9 @@ if vim.fn.has('win32') == 1 then
   vim.o.shellxquote = ''
 end
 
+-- Configuraciones adicionales (esto es para que no se redibuje constamente las notificaciones)
+--vim.opt.lazyredraw = true
+
 require("config.options")
 require("config.keymaps")
 require("config.lazy")

@@ -9,7 +9,7 @@ return {
         statuscolumn = { enabled = true },
         words = { enabled = false },
         scroll = {
-            enabled = true,
+            enabled = false,
             -- Animación principal de scroll
             animate = {
                 duration = { step = 10, total = 200 }, -- 10ms por paso, 200ms total
